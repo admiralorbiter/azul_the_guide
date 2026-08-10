@@ -14,13 +14,25 @@ This suite turns the existing Azul notes into a practical strategy system while 
 ## Documents
 
 1. **[azul-1v1-strategy-guide.md](./azul-1v1-strategy-guide.md)**  
-   The main play guide: move selection, wall geometry, pattern-line management, factory/center tactics, denial, initiative, bag tracking, phase strategy, and endgame calculation.
+   The main play guide: move selection, wall geometry, pattern-line management, factory/center tactics, denial, initiative, bag tracking, phase strategy, and endgame calculation. Includes the compressed move algorithm (THREAT → TAKE+SPILL → FLEX → TAIL) and the unified flexibility framework (Capacity → Choice → Collision).
 
 2. **[azul-strategy-math-and-research.md](./azul-strategy-math-and-research.md)**  
    Formalizes the game with useful quantities such as **absorption capacity**, factory **residue vectors**, point-differential evaluation, exact bag probabilities, and a claim audit of the earlier notes. It also reconciles the Azul AI thesis results with the existing MCTS notes.
 
 3. **[azul-training-playbook.md](./azul-training-playbook.md)**  
    A deliberate-practice program: drills, post-game review, measurable statistics, and experiments that can later feed the Rust/WASM practice tool.
+
+- **`azul-motif-atlas.md`** — A pattern-recognition companion: 12 named strategic motifs with concrete board positions, multiple-choice puzzles, answers, and explanations. The tactics book for Azul.
+
+## Learning path
+
+The guides are designed for progressive depth:
+
+- **Beginner** (3 principles): Score adjacency. Read the spill. Don't strand colors.
+- **Intermediate** (~8 motifs): Last Home, Poison Spill, Contested Color, Double-Duty, Poisoned Turn, Cross/Bridge, Marker Price, Close the Door.
+- **Advanced** (calculation): Recognize hot positions. Calculate the tail. Solve the endgame.
+
+Start with the motif atlas. Graduate to the strategy guide. Use the training playbook to build habits.
 
 ## The five ideas to learn first
 

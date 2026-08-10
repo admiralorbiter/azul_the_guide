@@ -121,7 +121,7 @@ A color with $H_p(c) = 1$ is **fragile**: if its sole legal line is consumed by 
 
 ### Capacity collisions and Hall's condition
 
-Individual home counts can be misleading. Consider colors $c_1, c_2, \ldots, c_k$ that collectively require pattern-line destinations. If the union of their legal line sets is smaller than $k$:
+Individual home counts can be misleading. Consider colors $c_1, c_2, \ldots, c_k$ with **anticipated or committed demand this round** — i.e., colors the player expects to draft or is already holding in pattern lines. If the union of their legal line sets is smaller than $k$:
 
 $$\left| \bigcup_{i=1}^{k} L_p(c_i) \right| < k$$
 
@@ -129,13 +129,15 @@ then not all of them can be placed simultaneously. This is a direct application 
 
 In practice, the most common violation is the simplest: **two or more one-home colors sharing the same sole legal line**.
 
-### Bottleneck index
+### Bottleneck index (tentative)
 
-A useful evaluator feature:
+One possible evaluator feature, not yet validated:
 
-$$\text{BN}_p = \sum_c \max\left(0, \frac{1}{H_p(c)} - \frac{1}{5}\right)$$
+$$\text{BN}_p = \sum_c \begin{cases} K & \text{if } H_p(c) = 0 \\ \frac{1}{H_p(c)} - \frac{1}{5} & \text{if } 0 < H_p(c) < 5 \\ 0 & \text{if } H_p(c) = 5 \end{cases}$$
 
-This scores zero for a color with all five rows available and increases as placement options narrow. A differential version $\text{BN}_{\text{opp}} - \text{BN}_{\text{you}}$ captures relative constraint pressure.
+where $K$ is a large penalty constant for colors with zero legal homes (all tiles go to the floor).
+
+`[TEST]` This index is a starting point for feature exploration, not a validated metric. The scalar form may not capture the most important constraint interactions. A differential version $\text{BN}_{\text{opp}} - \text{BN}_{\text{you}}$ captures relative constraint pressure if the index proves useful.
 
 The simple human version: count homes per color, watch for ones and twos, and flag any row that multiple constrained colors share.
 
@@ -165,14 +167,14 @@ This is simple, but strategically important: a factory move changes both **your 
 
 One potential evaluator feature:
 
-$$\text{RD}(m) = \sum_c w_c \, [F_{\text{you}}(c,C'_c) - F_{\text{opp}}(c,C'_c)]$$
+$$\text{RD}(m) = \sum_c w_c \, [F_{\text{opp}}(c,C'_c) - F_{\text{you}}(c,C'_c)]$$
 
 where $C'_c$ is the center pile size of color $c$ after move $m$, and $w_c$ weights colors by likelihood that someone will actually be forced to take them.
 
 Interpretation:
 
-- positive: your factory choice makes the center relatively safer for you / worse for opponent,
-- negative: you may be feeding your opponent a favorable center.
+- positive: the spill creates more forced overflow for the opponent than for you,
+- negative: the spill is more dangerous to you than to your opponent.
 
 Do not treat this exact equation as “solved Azul”; it is a feature proposal.
 
@@ -185,9 +187,28 @@ Human players benefit from a small taxonomy of factory spills. For a move $m$ ta
 | Safe | $F_p(c', C'_{c'}) = 0$ for both players, all spilled $c'$ | Neither player is hurt |
 | Opponent-toxic | $F_{\text{opp}}(c', C'_{c'}) > F_{\text{you}}(c', C'_{c'})$ for some spilled $c'$ | Spill favors you |
 | Self-toxic | $F_{\text{you}}(c', C'_{c'}) > F_{\text{opp}}(c', C'_{c'})$ for some spilled $c'$ | Spill hurts you |
-| Consolidating | Spill merges with existing center to create $C'_{c'} > \max(A_{\text{you}}(c'), A_{\text{opp}}(c'))$ | Creates a forced-overflow pile |
+| Consolidating | Spill merges with existing center to create $C'_{c'} > \min(A_{\text{you}}(c'), A_{\text{opp}}(c'))$ | Creates overflow for at least one player |
 
 A move's total value should include both the take value and the spill classification, not just the tiles entering the player's board.
+
+## 4.3 Color pressure: supply vs. demand
+
+Define the visible supply of color $c$ in the current round:
+
+$$S(c) = \text{tiles of } c \text{ in all factories and center}$$
+
+and committed demand:
+
+$$D(c) = D_{\text{you}}(c) + D_{\text{opp}}(c)$$
+
+where $D_p(c)$ estimates how many tiles of $c$ player $p$ needs to complete their most important pattern line(s) for $c$.
+
+The pressure ratio $S(c) - D(c)$ captures whether a color is contested:
+
+- $S(c) - D(c) \gg 0$: abundant, safe to delay.
+- $S(c) - D(c) \approx 0$ or negative: scarce, contested, take early.
+
+This gives Section 6.2 of the strategy guide ("delay safe pickups") a quantifiable decision criterion.
 
 ---
 
@@ -230,7 +251,7 @@ High temperature signals that heuristic play is insufficient and deeper search o
 
 ### Forcing moves
 
-A move $m$ is **forcing** if the opponent's best reply to $m$ is strictly dominated by responding to $m$'s threat—i.e., ignoring $m$ leads to a substantially worse outcome than any non-threat-related alternative.
+A move $m$ is **forcing** if ignoring the threat it creates has large immediate regret — that is, the opponent's expected outcome is substantially worse if they do not respond to $m$'s consequence than if they do. In practice, this means the opponent cannot simply "do their thing" and must instead react to what $m$ changed.
 
 In search, forcing moves should be evaluated first (analogous to threat-space search in connection games). For human play, the priority ordering is: forcing threats → forced responses → ordinary improvements.
 
@@ -475,11 +496,27 @@ Measure both strength and explanation quality.
 
 ## H11 — Risk posture switching
 
+`[TEST]` The "ahead close, behind complicate" principle is a `[HEURISTIC]` that requires experimental validation in Azul specifically. It is plausible but not established.
+
 **Question:** At what score margin and game stage should a player switch from "close" to "complicate" (or vice versa)?
 
 **Method:** From self-play data, bin states by margin and round. For each bin, compare conservative policies (short lines, safe picks, trigger-seeking) against aggressive policies (long commitments, contested bonuses, round extension). Identify the crossover where conservative dominates.
 
 **Prediction:** The threshold is not a fixed margin but depends on remaining bonus potential and round number.
+
+## H12 — Zero-score floor exploitation
+
+**Question:** Does the score-floor rule (scores cannot fall below zero) create exploitable early-game sacrifice opportunities?
+
+**Method:** In self-play data, identify Round 1-2 states where a player's score is near zero after wall tiling. Compare outcomes when the player takes additional floor penalties (aggressive denial, marker grab, tactical sacrifice) vs. avoids them.
+
+**Prediction:** Near-zero scores make certain floor penalties effectively free, enabling early-game tactics that would be incorrect at higher scores.
+
+## H13 — Color pressure as delay signal
+
+**Question:** Does the pressure ratio $S(c) - D(c)$ predict whether delaying a pickup is safe better than simpler heuristics (e.g., "are there multiple sources")?
+
+**Method:** For states where the player delays a pickup, measure whether the delay led to losing access to the color. Correlate with pressure ratio.
 
 ---
 
@@ -535,3 +572,35 @@ This is both more teachable and more debuggable than a single opaque value.
 - https://www.reddit.com/r/boardgames/comments/hxodaf/update_i_wrote_my_dissertation_on_azul/
 
 Use Tier 3 to generate hypotheses; use the engine/replay data to decide which survive.
+
+# 14. Human strategy quality as an optimization target
+
+The traditional AI research question is: *maximize agent strength*.
+
+An alternative, aligned with the goals of this project:
+
+$$\text{human strategy quality} = \text{move strength} - \lambda \cdot \text{rule complexity}$$
+
+The question becomes: **how much Azul strength can we compress into a small number of concepts a human can recognize under real playing conditions?**
+
+## Method
+
+1. Generate strong-engine decisions across a large corpus of game states.
+2. Use interpretable feature analysis (decision trees, sparse rule lists, or SHAP values) to identify which features explain most high-value decisions.
+3. Test whether 5–10 named motifs (from the motif atlas) account for most of the variance in move quality.
+4. Train humans on those motifs and measure whether skill transfers to unseen board states without engine assistance.
+
+## Cognitive budget
+
+A target architecture for human play:
+
+- **Beginner**: 3 principles (score adjacency, read the spill, don't strand colors)
+- **Intermediate**: ~8 named motifs (Last Home, Poison Spill, Contested Color, Double-Duty, Poisoned Turn, Cross/Bridge, Marker Price, Close the Door)
+- **Advanced**: knows *when* to perform exact calculation (position temperature)
+
+## Research questions
+
+- What is the minimal set of motifs that explains >80% of engine-preferred moves?
+- Do human players trained on motifs outperform those trained on general heuristics?
+- Does motif-based training transfer to novel board states better than rote memorization?
+- What is the optimal $\lambda$ (complexity penalty) for competitive human play?

@@ -36,65 +36,60 @@ A move that appears inefficient in raw points may be excellent if it preserves c
 
 ---
 
-# 2. The 10-second move algorithm
+# 2. The move algorithm
 
-Before every pick, run this sequence.
+Four questions, in order, before every pick:
 
-## Step 1 — What do I gain?
+```text
+1. THREAT    — Is anything forcing?
+2. TAKE + SPILL — What enters my board and what hits the center?
+3. FLEX      — What capacity / home am I spending?
+4. TAIL      — Is the position hot enough to calculate?
+```
 
-Check:
+If the answer to THREAT is yes, evaluate that move first — it may dominate regardless of raw scoring. If the answer to TAIL is yes (few groups remain, overflow imminent, game might end), calculate rather than guess.
+
+**Cold** positions (many similar moves, no traps): play by principles, spend seconds.
+**Warm** positions (scarce colors, denial opportunities): compare 2–3 candidates.
+**Hot** positions (forced pickups, game-ending threats, tight last-pick structure): calculate to round end.
+
+## The full breakdown
+
+When comparing candidates in warm or hot positions, run through these questions:
+
+### What do I gain?
 
 - Does this complete a pattern line this round?
-- Where will its wall tile score?
-- Does it create horizontal **and** vertical adjacency?
+- Where will its wall tile score? Does it create hooks?
 - Does it advance a credible column, color, or row bonus?
 - What floor cost does it create now?
 
-## Step 2 — What do I leave behind?
+### What do I leave behind?
 
-If taking from a factory, **the other colors are part of your move**. They are pushed into the center.
-
-Ask:
+If taking from a factory, the other colors are pushed into the center.
 
 - Which center piles get larger?
 - Do two sources of the same color consolidate?
-- Am I creating a 4-, 5-, or 6-tile pile that one player cannot absorb?
-- Does my opponent now get a one-pick completion?
+- Am I creating a pile that one player cannot absorb?
+- Is my spill safe, helping me, or helping them?
 
-## Step 3 — What is their best reply?
+### What is their best reply?
 
 Do not compare your move against the opponent playing normally. Compare it against their **best punishment**:
 
 - Can they steal a critical color?
 - Can they complete a high-scoring line?
-- Can they alter the center so your next desired pickup becomes too large?
+- Can they alter the center so your next pickup overflows?
 - Can they force you to take last?
 
-## Step 4 — What does the next board look like?
+### What does the next board look like?
 
-After your move and their strongest reply, ask:
+After your move and their strongest reply:
 
-- What useful groups remain?
 - Who has more safe capacity?
 - Who is closer to being forced onto the floor?
 - Who is likely to take the first-player marker?
-- Who is likely to take the final ugly group?
-
-## Step 5 — If the round is nearly solved, calculate instead of guessing
-
-`[STRUCTURAL]` Branching falls dramatically as factories empty. With only a few distinct groups left, mentally enumerate the remaining move/reply sequence. Late-round exact calculation is worth much more than early-round intuition.
-
-## Step 0 — Read the temperature first
-
-`[HEURISTIC]` Not every position deserves equal calculation. Before running Steps 1–5, classify the board:
-
-**Cold** — Several similar moves, no immediate traps. Play by principles; spend seconds.
-
-**Warm** — Scarce colors, competing pattern lines, meaningful denial opportunities. Compare 2–3 candidates carefully.
-
-**Hot** — Forced center pickups, game-ending threats, severe overflow risk, or tight last-pick structure. Calculate the round to the end.
-
-Learn to recognize when the board has become hot. Expertise is not calculating everything—it is knowing *when* to calculate.
+- Who gets stuck with the final ugly group?
 
 ---
 
@@ -225,9 +220,22 @@ It is reasonable when:
 
 The right mental model is **stranded-capacity risk**, not a blanket prohibition.
 
----
+# 5. Flexibility: the resource beneath every trap
 
-# 5. Absorption capacity: the cleanest way to see traps
+Three questions govern most tactical Azul decisions:
+
+> **How much room do I have? How many homes? Are the homes shared?**
+
+These map to three levels of flexibility analysis. Each level catches traps that the previous one misses.
+
+```text
+FLEXIBILITY
+├── CAPACITY   — How much can fit?          → A(c)
+├── CHOICE     — How many places can it go? → homes
+└── COLLISION  — Are the homes shared?      → Traffic Jam
+```
+
+## 5.1 Capacity: how much can fit?
 
 For a player $p$ and color $c$, define:
 
@@ -241,7 +249,7 @@ $$F_p(c,g) = \max(0, g - A_p(c))$$
 
 onto that player's floor if they take it and choose the best available pattern line.
 
-## Example
+### Example
 
 The center contains **5 red**.
 
@@ -261,31 +269,25 @@ You do not need to calculate $A(c)$ for every color every turn. When the center 
 
 > A center flood trap is not “there are lots of red tiles.” It is “the red pile is larger than one player's best legal single-line capacity.”
 
----
+## 5.2 Choice: how many places can it go?
 
-# 6. Protect the last home: constraint-based placement
-
-Absorption capacity tells you how much of a color you can take. This section answers a different question: **where should you put it?**
-
-The idea comes from constraint satisfaction, but the playing rule is simple.
-
-## 6.1 Count homes, not just capacity
+Capacity tells you how much of a color you can take. Choice answers a different question: **where should you put it?**
 
 `[HEURISTIC]` For each color you may need, count how many pattern lines can still legally accept it. Call these its **homes**.
 
 A quick scan might show:
 
 ```text
-Blue    ●●●   3 homes
-Red     ●●    2 homes
-Black   ●     1 home  ← fragile
-Yellow  ●●●   3 homes
-White   ●●    2 homes
+🟦 Blue    ●●●   3 homes
+🟥 Red     ●●    2 homes
+⬛ Black   ●     1 home  ← fragile
+🟨 Yellow  ●●●   3 homes
+⬜ White   ●●    2 homes
 ```
 
 One-home colors are fragile. If their only legal pattern line gets used for something else, they become unplaceable and every future tile of that color goes to the floor.
 
-## 6.2 The placement rule
+### The placement rule
 
 `[HEURISTIC]` When you have a choice about where to place a color, ask:
 
@@ -299,9 +301,9 @@ Red can legally go into rows 2, 4, or 5. Black can only go into row 5.
 
 Row 5 might look attractive for red because it can fit more tiles. But from a constraint perspective it is the worst destination: red has alternatives, black does not. Placing red in row 5 may strand black entirely.
 
-## 6.3 The Traffic Jam: capacity collisions
+## 5.3 Collision: are the homes shared?
 
-`[STRUCTURAL]` Absorption capacity measures each color in isolation. But multiple colors can need the **same** pattern line, creating a bottleneck that individual capacity checks miss.
+`[STRUCTURAL]` Capacity and choice each measure one color in isolation. But multiple colors can need the **same** pattern line, creating a bottleneck that individual checks miss.
 
 Suppose:
 
@@ -325,20 +327,20 @@ The sharper rule:
 
 > **Keep bottleneck rows open for the colors that actually need them.**
 
-## 6.4 Using constraint awareness in practice
+## 5.4 Using flexibility awareness in practice
 
-You do not need to scan all five colors every turn. The constraint check becomes important when:
+You do not need to scan all five colors every turn. The flexibility check becomes important when:
 
 - you are about to commit a long pattern line to a color that has other options,
 - you notice two or more colors converging on the same row,
 - you are evaluating whether a small floor penalty is better than consuming a scarce row,
 - your opponent can deny the only remaining home for one of your critical colors.
 
-This naturally extends the absorption-capacity framework from Section 5 and the partial-line risk analysis from Section 4.3.
+This naturally extends the capacity analysis from Section 5.1 and the partial-line risk analysis from Section 4.3.
 
 ---
 
-# 7. Factory drafting: Take + Spill
+# 6. Factory drafting: Take + Spill
 
 When you select a color from a factory, every other tile on that factory moves to the center. You are always performing two actions:
 
@@ -347,8 +349,8 @@ $$\text{Factory Move} = \text{Tiles Taken} + \text{Tiles Spilled}$$
 Train yourself to read every factory as **Take + Spill**:
 
 ```text
-Factory A:  TAKE 3 blue  |  SPILL 1 red to center
-Factory B:  TAKE 2 blue  |  SPILL 2 red to center
+Factory A:  TAKE 3🟦  |  SPILL 1🟥 to center
+Factory B:  TAKE 2🟦  |  SPILL 2🟥 to center
 ```
 
 Three blue from Factory A scores better immediately. But Factory B spills two red into the center. If your opponent cannot absorb red, Factory B may be the far stronger move.
@@ -357,18 +359,38 @@ Three blue from Factory A scores better immediately. But Factory B spills two re
 
 ### Spill patterns
 
-`[HEURISTIC]` Most factory spills fall into a small number of recurring types:
+`[HEURISTIC]` Classify every spill into one of three types:
 
-- **Safe spill** — the spilled colors are easily absorbed by both players.
-- **Opponent-toxic spill** — the spill consolidates a color your opponent cannot absorb.
-- **Self-toxic spill** — the spill creates a pile dangerous to you.
-- **Center consolidation** — the spill merges with existing center tiles to create a large single-color group.
-- **Color rescue** — taking from a factory prevents an opponent-favorable consolidation.
-- **Delayed poison** — the spill looks harmless now but becomes toxic after one more factory pick.
+- **SAFE** — the spilled colors are easily absorbed by both players.
+- **HELPS ME** — the spill creates a problem for the opponent (toxic consolidation, denial of their pickup).
+- **HELPS THEM** — the spill benefits the opponent or creates a pile dangerous to you.
 
-Before selecting a factory, classify the spill. If two factories offer similar tiles to take, choose the one whose spill pattern helps you.
+If two factories offer similar tiles to take, choose the one whose spill helps you.
 
-## 7.1 Delay safe pickups
+## 6.1 Color pressure: is it safe to wait?
+
+`[HEURISTIC]` Before delaying a pickup, ask whether there is enough of that color for both players.
+
+```text
+Visible 🟥 this round: 3
+You need:              2
+Opponent needs:        2
+                       → contested: take now
+```
+
+```text
+Visible 🟥 this round: 7
+You need:              2
+Opponent needs:        0
+                       → safe to delay
+```
+
+**Scarce + needed by both = contested.** Act now.
+**Abundant + only needed by you = safe to delay.** Do something else first.
+
+This gives Section 6.2's "delay safe pickups" an operational definition of *safe*.
+
+## 6.2 Delay safe pickups
 
 `[HEURISTIC]` If you need a group that exists in multiple safe sources and your opponent has little reason to take it, consider doing something else first.
 
@@ -380,25 +402,29 @@ This can let you:
 
 But do not delay when the opponent can combine the sources into a pile too large for your target line.
 
-## 7.2 Center versus factory
+## 6.3 Center versus factory
 
 Once the first-player marker has been taken, a center pick often has a tempo advantage because it **removes one color group without adding new residues**. A factory pick removes one group but adds leftovers to the center and may collapse future choices.
 
 `[HEURISTIC]` If two picks are otherwise similar, prefer the one that leaves the future draft structure better for you. Sometimes that is the center; sometimes deliberately feeding the center creates the trap you want.
 
-## 7.3 Count drafting actions late in the round
+## 6.4 The Poisoned Turn
 
 The total number of future *drafting actions* is not fixed at 20 tiles / 2 players because a single action can take multiple same-color tiles.
 
-Near the end of the round, count remaining **color groups**, not tiles. Ask who receives the last selection if current groups are consumed in the most likely order—and whether a factory pick merges two groups into one, changing parity.
+`[HEURISTIC]` Sometimes the important question is not "what do I want to take?" but **"who do I want to be on move after this?"**
+
+If every remaining choice is bad for the player to move, your objective is to hand that turn to your opponent. This is a small zugzwang: you would rather pass, but Azul doesn't allow passing.
+
+Count remaining **color groups**, not tiles. Ask who receives the last selection if groups are consumed in the most likely order — and whether a factory pick merges two center groups, changing parity.
 
 This is a major source of forced-floor tactics in 1v1.
 
 ---
 
-# 8. The first-player marker: buy initiative at the right price
+# 7. The first-player marker: buy initiative at the right price
 
-## 8.1 What the marker actually costs
+## 7.1 What the marker actually costs
 
 `[RULE]` The first player to draft from the center takes the starting-player marker and places it on the **leftmost free floor space**. It counts as a normal floor tile when penalties are scored.
 
@@ -415,7 +441,7 @@ So “first player costs -1” is only true when the marker occupies one of the 
 - the penalty of the slot the marker occupies, **plus**
 - any extra penalty caused by pushing later floor tiles one slot to the right.
 
-## 8.2 What initiative is worth
+## 7.2 What initiative is worth
 
 Starting next round can provide:
 
@@ -430,7 +456,7 @@ $$\text{Initiative Value} - \text{Marginal Floor Cost}$$
 
 not as “always take it.”
 
-## 8.3 Final round
+## 7.3 Final round
 
 `[STRUCTURAL]` If the current round will certainly end the game, next-round initiative is worth zero. The marker may still come attached to a useful center group or matter to floor sequencing, but there is no future first-move benefit.
 
@@ -438,9 +464,9 @@ This is one of the cleanest places to override the usual first-player instinct.
 
 ---
 
-# 9. Blocking and denial
+# 8. Blocking and denial
 
-## 9.1 Block *credible* value, not theoretical bonuses
+## 8.1 Block *credible* value, not theoretical bonuses
 
 A +7 column or +10 color bonus looks tempting to block, but ask whether the opponent is actually going to get it.
 
@@ -452,7 +478,7 @@ A denial is valuable when the opponent has:
 - enough remaining rounds to finish,
 - no strong pivot.
 
-## 9.2 Marginal denial value
+## 8.2 Marginal denial value
 
 Suppose:
 
@@ -470,13 +496,13 @@ Improvement from B over A                       = +4 margin
 
 This comparison prevents overvaluing “I stopped seven points!” while ignoring what you gave up.
 
-## 9.3 The single-tile snatch
+## 8.3 The single-tile snatch
 
 `[HEURISTIC]` Stealing a single tile is strongest when it strands a nearly complete row 4/5 or prevents a bonus whose remaining requirements are otherwise easy.
 
 It is weakest when the opponent can simply pivot to another color or when the stolen tile damages your board much more than the denial hurts theirs.
 
-## 9.4 Center flood trap
+## 8.4 Center flood trap
 
 Use absorption capacity rather than a fixed “4+ tiles” rule.
 
@@ -484,7 +510,7 @@ A three-tile pile can be devastating if $A_{\text{opp}}(c) = 0$. A six-tile pile
 
 The trap is about **pile size relative to legal capacity**, not an arbitrary pile threshold.
 
-## 9.5 Forcing moves: Azul sente
+## 8.5 Forcing moves: Azul sente
 
 `[HEURISTIC]` Some moves essentially say "I am doing my thing." Others say "if you do not react to what I just did, something bad happens." The second type are **forcing moves**.
 
@@ -509,9 +535,19 @@ This gives an Azul move-ordering priority:
 
 This priority tells you where to spend calculation time. If a forcing move exists, evaluate it first—it may dominate regardless of raw scoring.
 
+## 8.6 Double-duty moves
+
+`[HEURISTIC]` The strongest denial moves are often moves you wanted anyway.
+
+A move that scores for you, denies your opponent, creates a helpful spill, *and* preserves your flexibility is enormously better than throwing a tile onto your floor just to block.
+
+> **Prefer moves that solve two strategic problems at once.**
+
+This also serves as a candidate-generation shortcut: instead of evaluating every legal move, first scan for moves doing multiple jobs.
+
 ---
 
-# 10. Completing a full color: bonus and liability
+# 9. Completing a full color: bonus and liability
 
 `[RULE]` A wall row may never accept the same color twice.
 
@@ -526,13 +562,13 @@ This makes the +10 color bonus strategically unusual:
 
 ---
 
-# 11. Floor management: penalties are prices, not sins
+# 10. Floor management: penalties are prices, not sins
 
 `[RULE]` Floor penalties are cumulative by slot: -1, -1, -2, -2, -2, -3, -3. Your score cannot fall below zero.
 
 A zero-floor game is not necessarily a good game.
 
-## 11.1 When taking floor points is correct
+## 10.1 When taking floor points is correct
 
 Consider a small penalty when it:
 
@@ -543,15 +579,25 @@ Consider a small penalty when it:
 - buys valuable next-round initiative,
 - changes who is stuck with the last center pile.
 
-## 11.2 The floor is nonlinear
+## 10.2 The floor is nonlinear
 
 Your first -1 can be cheap. Your sixth and seventh floor positions are -3 each. Therefore “one more bad tile” becomes increasingly expensive as the floor fills.
 
 Evaluate **marginal floor cost**, not only the number of overflow tiles.
 
+## 10.3 The zero-score discount
+
+`[STRUCTURAL]` Because your score cannot fall below zero, raw floor penalty and actual scoreboard loss are not always equal.
+
+Suppose you have 1 point after wall scoring and the floor already costs -1. Adding another tile might change the printed penalty from -1 to -3 — but your actual score only falls from 1 to 0. The additional -2 has zero marginal scoreboard cost.
+
+`[HEURISTIC]` When your score is near zero (especially in Rounds 1–2), some floor penalties are effectively discounted. This can justify aggressive early denials, marker grabs, or tactical sacrifices that would look expensive at higher scores.
+
+`[TEST]` The score floor likely creates counterintuitive early-game sacrifice opportunities. This should be validated computationally.
+
 ---
 
-# 12. Bag tracking without turning Azul into accounting
+# 11. Bag tracking without turning Azul into accounting
 
 There are 20 tiles of each of the 5 colors.
 
@@ -561,7 +607,7 @@ There are 20 tiles of each of the 5 colors.
 
 This makes Round 5 a natural counting breakpoint.
 
-## 12.1 Practical counting system
+## 11.1 Practical counting system
 
 Do **not** track all five colors from move one unless you enjoy it.
 
@@ -583,7 +629,7 @@ For color $c$:
 = possible copies still in bag
 ```
 
-## 12.2 Exact probability when it matters
+## 11.2 Exact probability when it matters
 
 If the bag contains $B$ tiles, $B_c$ of which are the color you need, and the next setup will draw $n$ tiles, then the chance of seeing at least one copy is:
 
@@ -593,9 +639,9 @@ This is most useful for an important late-game commitment, not routine early-gam
 
 ---
 
-# 13. Phase strategy
+# 12. Phase strategy
 
-## 13.1 Rounds 1–2: build options
+## 12.1 Rounds 1–2: build options
 
 **Primary goals**
 
@@ -611,7 +657,7 @@ This is most useful for an important late-game commitment, not routine early-gam
 - Seed row 5 with one tile only to avoid -1.
 - Chase a color bonus before you know the game shape.
 
-## 13.2 Rounds 3–4: become adversarial
+## 12.2 Rounds 3–4: become adversarial
 
 This is where 1v1 Azul stops being mostly architectural.
 
@@ -625,7 +671,7 @@ Before each turn, inspect:
 
 Start tracking one or two critical colors from the bag.
 
-## 13.3 Round 5 and later: solve the finish
+## 12.3 Round 5 and later: solve the finish
 
 By now, broad heuristics should give way to arithmetic.
 
@@ -638,7 +684,7 @@ Calculate:
 5. whether either player completes a horizontal row and triggers the end,
 6. whether extending one round benefits you more than the opponent.
 
-## 13.4 Risk-adjusted play: ahead close, behind complicate
+## 12.4 Risk-adjusted play: ahead close, behind complicate
 
 `[HEURISTIC]` Your strategic posture should shift based on the score margin.
 
@@ -661,19 +707,19 @@ The research question is not whether this principle exists—it is **at what lea
 
 ---
 
-# 14. Game-ending control
+# 13. Game-ending control
 
 `[RULE]` The game ends immediately after the wall-tiling phase of a round in which at least one player has completed a horizontal row of five.
 
-## 14.1 If you are ahead
+## 13.1 If you are ahead
 
 `[HEURISTIC]` Prefer ending when the **fully calculated final margin** is favorable. Ending denies future opponent opportunities, but it can also cut off your own bonuses. “Ahead now” is not enough—score the wall phase and bonuses first.
 
-## 14.2 If you are behind
+## 13.2 If you are behind
 
 `[HEURISTIC]` Preserve another round only when you have a plausible way to gain more from it than your opponent. An extra round is not automatically comeback equity; it may simply give the leader more adjacency scoring.
 
-## 14.3 Tie-break
+## 13.3 Tie-break
 
 `[RULE]` If final scores tie, the player with more completed horizontal rows wins; if still tied, victory is shared.
 
@@ -681,7 +727,7 @@ That means a horizontal completion can carry **trigger value +2 bonus + tie-brea
 
 ---
 
-# 15. Common strategic mistakes
+# 14. Common strategic mistakes
 
 ## Mistake 1 — Only looking at your board
 
@@ -713,7 +759,7 @@ That means a horizontal completion can carry **trigger value +2 bonus + tie-brea
 
 ---
 
-# 16. One-page competitive checklist
+# 15. One-page competitive checklist
 
 ## Start of round
 
@@ -744,7 +790,7 @@ That means a horizontal completion can carry **trigger value +2 bonus + tie-brea
 
 ---
 
-# 17. What is deliberately *not* claimed here
+# 16. What is deliberately *not* claimed here
 
 The following ideas may be useful, but the sources reviewed do not justify treating them as universal truths:
 

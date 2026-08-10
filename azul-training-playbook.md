@@ -58,9 +58,9 @@ At three points in each round—early, middle, late—pick every color currently
 
 ```text
 Color     My A(c)     Opp A(c)     Center size     Toxic to whom?
-Blue         4           2              3          Opponent
-Yellow       1           5              4          Me
-Red          0           1              2          Both / me worse
+🟦 Blue         4           2              3          Opponent
+🟨 Yellow       1           5              4          Me
+🟥 Red          0           1              2          Both / me worse
 ...
 ```
 
@@ -82,11 +82,11 @@ At the start of each round and again mid-round, scan your board and record:
 
 ```text
 Color     Legal rows     Homes     Shared with?
-Blue      2, 4, 5        3
-Red       4, 5           2         Blue
-Black     5              1 ←       Red, Blue
-Yellow    1, 3           2
-White     2, 3, 5        3
+🟦 Blue      2, 4, 5        3
+🟥 Red       4, 5           2         Blue
+⬛ Black     5              1 ←       Red, Blue
+🟨 Yellow    1, 3           2
+⬜ White     2, 3, 5        3
 ```
 
 Then ask:
@@ -101,7 +101,32 @@ Play an entire game where you never accidentally strand a one-home color by usin
 
 ---
 
-# 5. Drill: draft the leftovers
+# 5. Drill: color pressure scan
+
+## Goal
+
+Recognize contested vs. safe colors before deciding whether to delay a pickup.
+
+At the start of each round, scan the visible 20 tiles:
+
+```text
+Color     Visible     I need     They need     Pressure
+🟦 Blue         6           2           1          +3 safe
+🟥 Red          3           2           2          -1 contested
+⬛ Black        2           0           3          -1 safe for me
+🟨 Yellow       5           3           0          +2 safe
+⬜ White        4           1           2          +1 marginal
+```
+
+Before delaying any pickup, check: is this color contested?
+
+## Success standard
+
+Over five games, never lose access to a color you needed because you delayed when pressure was negative.
+
+---
+
+# 6. Drill: draft the leftovers
 
 ## Goal
 
@@ -134,7 +159,7 @@ Categories: safe, opponent-toxic, self-toxic, consolidating, delayed poison.
 
 ---
 
-# 6. Drill: solve the tail
+# 7. Drill: solve the tail
 
 ## Goal
 
@@ -165,7 +190,7 @@ Before the final two picks, you can state which player will take the last group 
 
 ---
 
-# 7. Drill: first-player price
+# 8. Drill: first-player price
 
 Each time the center is first opened, pause and record:
 
@@ -183,7 +208,7 @@ After the next round begins, mark whether the predicted benefit actually occurre
 
 ---
 
-# 8. Drill: one-color bag tracking
+# 9. Drill: one-color bag tracking
 
 Start simple.
 
@@ -199,7 +224,7 @@ Only add a second color after you can track one without distracting yourself fro
 
 ---
 
-# 9. Drill: read the temperature
+# 10. Drill: read the temperature
 
 ## Goal
 
@@ -219,7 +244,7 @@ Over five games, you should identify **every hot position** before making your m
 
 ---
 
-# 10. Drill: endgame audit
+# 11. Drill: endgame audit
 
 Beginning in Round 4, ask at the start of every round:
 
@@ -238,7 +263,7 @@ If a move can trigger the end, **calculate first, trigger second**.
 
 ---
 
-# 11. Post-game review template
+# 12. Post-game review template
 
 Copy this after any serious game:
 
@@ -291,11 +316,11 @@ Copy this after any serious game:
 
 ---
 
-# 12. Metrics worth tracking over 20+ games
+# 13. Metrics worth tracking over 20+ games
 
 Do not judge strategy from one memorable win. Track repeated behavior.
 
-## 12.1 Floor differential
+## 13.1 Floor differential
 
 $$\text{FD} = \text{Opponent floor penalty} - \text{Your floor penalty}$$
 
@@ -307,29 +332,29 @@ Separate:
 - intentional strategic floor,
 - tactical mistake floor.
 
-## 12.2 Wall-placement efficiency
+## 13.2 Wall-placement efficiency
 
 $$E = \frac{\text{wall-tiling points}}{\text{number of wall tiles placed}}$$
 
 Do not assume a target of 2.0. Build your own distribution and see whether winners consistently differ from losers.
 
-## 12.3 Cross-score rate
+## 13.3 Cross-score rate
 
 Percentage of wall placements that scored both horizontal and vertical lines.
 
 This measures whether your geometry is creating intersections rather than isolated placements.
 
-## 12.4 Stranded long-line turns
+## 13.4 Stranded long-line turns
 
 Count rounds in which row 4 or 5 begins and ends partially filled **without the partial line having served a deliberate strategic purpose**.
 
 This is more informative than simply counting incomplete long lines.
 
-## 12.5 Forced overflow created
+## 13.5 Forced overflow created
 
 Total opponent floor tiles that were a direct result of a center pile you intentionally consolidated beyond their absorption capacity.
 
-## 12.6 Initiative conversion
+## 13.6 Initiative conversion
 
 When you take the starting-player marker, did first pick next round produce the benefit you predicted?
 
@@ -342,13 +367,13 @@ predicted benefit: secure 3 blue for row 3
 realized benefit: yes/no
 ```
 
-## 12.7 End-trigger accuracy
+## 13.7 End-trigger accuracy
 
 For every game-ending decision, record whether your pre-trigger final-score projection was correct within 2 points.
 
 ---
 
-# 13. Five-game focused training blocks
+# 14. Five-game focused training blocks
 
 ## Block A — No-surprise center
 
@@ -399,9 +424,15 @@ For five games, before every factory pick, say aloud: "I take [X]. I spill [Y] t
 
 For five games, before choosing your move, first scan for any forcing move. If one exists, evaluate it before considering ordinary scoring moves.
 
+## Block I — Double-duty scanning
+
+For five games, before choosing your move, first ask: "Does any move both score for me AND deny something important from my opponent?"
+
+Goal: discover that multi-purpose moves exist more often than you expect.
+
 ---
 
-# 14. Experiments for the Rust/WASM practice tool
+# 15. Experiments for the Rust/WASM practice tool
 
 The existing practice-tool architecture is well suited to generating tactical puzzles, but scenario selection should be tied to learnable strategic motifs.
 
@@ -427,6 +458,10 @@ Every generated state should be taggable with one or more of:
 - `FORCING_MOVE`
 - `POSITION_TEMPERATURE`
 - `RISK_POSTURE`
+- `POISONED_TURN`
+- `DOUBLE_DUTY`
+- `COLOR_PRESSURE`
+- `ZERO_FLOOR`
 
 ## Scenario quality
 
@@ -465,7 +500,7 @@ Concept: Draft the leftovers.
 
 ---
 
-# 15. When to move beyond heuristics
+# 16. When to move beyond heuristics
 
 Once you can consistently:
 
