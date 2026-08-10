@@ -10,8 +10,8 @@ A pattern-recognition companion to the 1v1 strategy guide. Each motif is a named
 4. Note when the rule fails — edge cases build real understanding.
 
 > **Notation Key:**
-> - **Colors:** 🟦 Blue | 🟨 Yellow | 🟥 Red | ⬛ Black | ⬜ White
-> - **Wall Grid:** Color emoji (🟦🟨🟥⬛⬜) = placed tile | ◽ = empty wall slot
+> - **Colors:** 🟦 Blue (b) | 🟨 Yellow (y) | 🟥 Red (r) | ⬛ Black (k) | ⬜ White (w)
+> - **Wall Grid:** Color emoji (🟦🟨🟥⬛⬜) = placed tile | Lowercase letter (b y r k w) = empty wall slot
 > - **Pattern Lines:** `[◽]` = open slot | `[🟦]` = filled tile slot
 
 ---
@@ -56,11 +56,11 @@ The 12 motifs are organized into four strategic families across three difficulty
 
 ```text
 Wall Grid:           Pattern Lines:       Options Available:
-◽ ◽ ◽ ⬛ ◽       1: [◽]               Factory 1: 3🟨, 1⬛
-◽ ◽ ◽ ◽ ⬛       2: [◽][◽]            Center: 1🟥
-⬛ ◽ ◽ ◽ ◽       3: [◽][◽][◽]
-◽ ⬛ ◽ ◽ ◽       4: [🟥][🟥][🟥][◽]
-◽ ◽ ◽ ◽ ◽       5: [◽][◽][◽][◽][◽]
+b  y  r  ⬛  w       1: [◽]               Factory 1: 3🟨, 1⬛
+w  b  y  r  ⬛       2: [◽][◽]            Center: 1🟥
+⬛  w  b  y  r       3: [◽][◽][◽]
+r  ⬛  w  b  y       4: [🟥][🟥][🟥][◽]
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
@@ -81,11 +81,11 @@ C. 1⬛ to Line 1
 
 ```text
 Wall Grid:           Pattern Lines:       Options Available:
-◽ ◽ 🟥 ⬛ ◽       1: [◽]               Factory 1: 2⬜, 2🟥
-◽ ◽ ◽ 🟥 ⬛       2: [◽][◽]            Center: 4🟦
-⬛ ◽ ◽ ◽ 🟥       3: [◽][◽][◽]
-◽ ⬛ ◽ ◽ ◽       4: [◽][◽][◽][◽]
-◽ ◽ ◽ ◽ ◽       5: [◽][◽][◽][◽][◽]
+b  y  🟥  ⬛  w       1: [◽]               Factory 1: 2⬜, 2🟥
+w  b  y  🟥  ⬛       2: [◽][◽]            Center: 4🟦
+⬛  w  b  y  🟥       3: [◽][◽][◽]
+r  ⬛  w  b  y       4: [◽][◽][◽][◽]
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
@@ -114,22 +114,22 @@ C. 2🟥 to Line 5
 
 ```text
 Wall Grid:           Pattern Lines:       Options Available:
-🟦 🟨 🟥 ⬛ ◽       1: [◽]               Factory 1: 3⬛, 1⬜
-⬜ 🟦 🟨 🟥 ◽       2: [◽][◽]            Factory 2: 3🟥, 1🟦
-⬛ ⬜ 🟦 🟨 ◽       3: [◽][◽][◽]
-◽ ◽ ◽ ◽ ◽       4: [◽][◽][◽][◽]
-◽ ◽ ◽ ◽ ◽       5: [◽][◽][◽][◽][◽]
+🟦  🟨  🟥  ⬛  w     1: [◽]               Factory 1: 3⬛, 1⬜
+⬜  🟦  🟨  🟥  k     2: [◽][◽]            Factory 2: 3🟥, 1🟦
+⬛  w  🟦  🟨  r     3: [◽][◽][◽]
+r  k  w  b  y     4: [◽][◽][◽][◽]
+y  r  k  w  b     5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
 
 A. 3⬛ to Line 4  
-B. 3⬛ to Line 3  
+B. 3⬛ to Line 2  
 C. 1🟦 to Line 4  
 
 **Answer:** B
 
-**Why:** Look at your legal destinations. Blue (🟦) and Yellow (🟨) are placed in Rows 1, 2, and 3. Therefore, Blue and Yellow can ONLY go into Row 4 or Row 5. They are bottlenecked together into Rows 4 and 5. Black (⬛) is placed in Rows 1 and 3, meaning Row 2 and Row 4 are legal for Black. If you put Black into Line 4, you consume one of the only two rows Blue and Yellow can use, causing a disastrous traffic jam later. Put 3⬛ into Line 3 (or Line 2) to keep Lines 4 and 5 open for Blue and Yellow.
+**Why:** Look at your legal destinations. Blue (🟦) and Yellow (🟨) are placed in Rows 1, 2, and 3. Therefore, Blue and Yellow can ONLY go into Row 4 or Row 5. They are bottlenecked together into Rows 4 and 5. Black (⬛) is placed in Rows 1 and 3, meaning Row 2 and Row 4 are legal for Black. If you put Black into Line 4, you consume one of the only two rows Blue and Yellow can use, causing a disastrous traffic jam later. Put 3⬛ into Line 2 to keep Lines 4 and 5 open for Blue and Yellow.
 
 **When the rule fails:** If you are actively trying to end the game on this round and future board flexibility does not matter.
 
@@ -139,11 +139,11 @@ C. 1🟦 to Line 4
 
 ```text
 Wall Grid:           Pattern Lines:       Options Available:
-🟦 🟨 🟥 ◽ ◽       1: [◽]               Factory 1: 3⬛, 1🟨
-⬜ 🟦 🟨 ◽ ◽       2: [◽][◽]            Factory 2: 2🟥, 2⬜
-⬛ ⬜ 🟦 ◽ ◽       3: [◽][◽][◽]
-◽ ◽ ◽ ◽ ◽       4: [◽][◽][◽][◽]
-◽ ◽ ◽ ◽ ◽       5: [◽][◽][◽][◽][◽]
+🟦  🟨  🟥  k  w     1: [◽]               Factory 1: 3⬛, 1🟨
+⬜  🟦  🟨  r  k     2: [◽][◽]            Factory 2: 2🟥, 2⬜
+⬛  w  🟦  y  r     3: [◽][◽][◽]
+r  k  w  b  y     4: [◽][◽][◽][◽]
+y  r  k  w  b     5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
@@ -154,7 +154,7 @@ C. 1🟨 to Line 1
 
 **Answer:** B
 
-**Why:** Red (🟥), Black (⬛), and White (⬜) are all constrained to Rows 4 and 5 because Rows 1–3 already contain them or are full. If you put Black into Line 4, you leave only Line 5 for both Red and White. Putting 3⬛ in Line 3 preserves Lines 4 and 5 for Red and White.
+**Why:** Red (🟥), Black (⬛), and White (⬜) are all constrained to Rows 4 and 5 because Rows 1–3 already contain them or are full. Line 3 is open for Black (⬛ is placed in Rows 1 & 2). If you put Black into Line 4, you leave only Line 5 for both Red and White. Putting 3⬛ in Line 3 preserves Lines 4 and 5 for Red and White.
 
 **When the rule fails:** When an immediate denial move takes higher priority than long-term capacity preservation.
 
@@ -172,11 +172,11 @@ C. 1🟨 to Line 1
 
 ```text
 Wall Grid:           Pattern Lines:       Options Available:
-🟦 🟨 🟥 ⬛ ⬜       1: [⬜]               Center: 2⬛
-⬜ 🟦 🟨 🟥 ⬛       2: [🟦][🟦]            Factory 1: 3🟨, 1🟥
-⬛ ⬜ 🟦 🟨 🟥       3: [🟨][🟨][🟨]
-🟥 ⬛ ⬜ 🟦 🟨       4: [🟥][🟥][🟥][🟥]
-◽ ◽ ◽ ◽ ◽       5: [◽][◽][◽][◽][◽]
+🟦  🟨  🟥  ⬛  w     1: [⬜]               Center: 2⬛
+⬜  🟦  🟨  🟥  k     2: [🟦][🟦]            Factory 1: 3🟨, 1🟥
+⬛  w  🟦  🟨  r     3: [🟨][🟨][🟨]
+🟥  k  w  🟦  y     4: [🟥][🟥][🟥][🟥]
+y  r  k  w  b     5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
@@ -197,11 +197,11 @@ C. Take 3🟨 from Factory 1 to Line 5
 
 ```text
 Wall Grid:           Pattern Lines:       Options Available:
-🟦 🟨 🟥 ⬛ ◽       1: [◽]               Center: 3🟥
-⬜ 🟦 🟨 🟥 ⬛       2: [◽][◽]
-⬛ ⬜ 🟦 🟨 🟥       3: [◽][◽][◽]
-🟥 ⬛ ⬜ 🟦 🟨       4: [🟦][🟦][🟦][◽] (Reserved for Blue)
-◽ ◽ ◽ ◽ ◽       5: [◽][◽][◽][◽][◽] (Empty Buffer)
+🟦  🟨  🟥  ⬛  w     1: [◽]               Center: 3🟥
+⬜  🟦  🟨  🟥  k     2: [◽][◽]
+⬛  w  🟦  🟨  r     3: [◽][◽][◽]
+🟥  k  w  🟦  y     4: [🟦][🟦][🟦][◽] (Reserved for Blue)
+y  r  k  w  b     5: [◽][◽][◽][◽][◽] (Empty Buffer)
 ```
 
 **What would you take?**
@@ -222,7 +222,7 @@ C. Take starting player marker
 
 ## Motif: Poison Spill `[Core]`
 
-**Rule:** Choose factories by what they dump into the center, not just what they give you.
+**Rule:** Choose factories by what they dump into the center, not just what they give you. Poison needs delivery — absorption capacity tells you who gets hurt, but turn order decides who drinks it.
 
 **When it matters:** Whenever a factory pick will send 2+ tiles into the common center pool.
 
@@ -231,12 +231,14 @@ C. Take starting player marker
 ### Position 1
 
 ```text
-Opponent Board:      Center: Empty        Options Available:
-Absorption capacity                       Factory 1: 1🟦, 3🟥
-A_opp(Red) = 1                            Factory 2: 1🟦, 1🟨, 2⬜
-(Lines 2-5 locked)
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Factory 1: 1🟦, 3🟥
+w  b  y  r  k       2: [◽][◽]            Factory 2: 1🟦, 1🟨, 2⬜
+k  w  b  y  r       3: [◽][◽][◽]            Center: Empty
+r  k  w  b  y       4: [◽][◽][◽][◽]
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
-*Your board needs 1🟦 for Line 1.*
+*Opponent Absorption Capacity: A_opp(Red) = 1 (Lines 2-5 locked).*
 
 **What would you take?**
 
@@ -255,11 +257,14 @@ C. 3🟥 from Factory 1
 ### Position 2
 
 ```text
-Opponent Board:      Center: Empty        Options Available:
-A_opp(Black) = 0                          Factory 1: 1🟥, 3⬛
-A_opp(Yellow) = 4                         Factory 2: 1🟥, 3🟨
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Factory 1: 1🟥, 3⬛
+w  b  y  r  k       2: [◽][◽]            Factory 2: 1🟥, 3🟨
+k  w  b  y  r       3: [◽][◽][◽]            Center: Empty
+r  k  w  b  y       4: [🟥][🟥][🟥][◽]
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
-*Your Line 4 needs 1🟥 (`[🟥][🟥][🟥][◽]`).*
+*Opponent Absorption Capacity: A_opp(Black) = 0, A_opp(Yellow) = 4.*
 
 **What would you take?**
 
@@ -286,10 +291,12 @@ C. 3⬛ from Factory 1
 ### Position 1
 
 ```text
-Visible Red (🟥): 3 tiles across factories
-Your Demand: 2🟥 for Line 2 ([◽][◽])
-Opponent Demand: 2🟥 for Line 3 ([🟥][◽][◽])
-Total Demand (4🟥) > Total Supply (3🟥)  → CONTESTED
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Factory 1: 2🟥, 2🟦
+w  b  y  r  k       2: [◽][◽]            Factory 2: 1🟥, 3⬜
+k  w  b  y  r       3: [◽][◽][◽]            Visible Red: 3 tiles
+r  k  w  b  y       4: [◽][◽][◽][◽]            Your Demand: 2🟥 (Line 2)
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]        Opp Demand: 2🟥 (Line 3)
 ```
 
 **What would you take?**
@@ -309,23 +316,25 @@ C. Take starting player marker
 ### Position 2
 
 ```text
-Visible Yellow (🟨): 7 tiles across factories
-Your Demand: 2🟨 for Line 2 ([◽][◽])
-Opponent Demand: 0🟨 (Yellow on wall in all open lines)
-Total Supply (7🟨) >> Total Demand (2🟨)  → UNCONTESTED
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Factory 1: 1⬛, 2🟨
+w  b  y  r  k       2: [◽][◽]            Factory 2: 5🟨
+k  w  b  y  r       3: [◽][◽][◽]            Visible Yellow: 7 tiles
+r  k  w  b  y       4: [◽][◽][◽][◽]            Your Demand: 2🟨 (Line 2)
+y  r  k  w  b       5: [🟥][🟥][🟥][🟥][🟥]     Opp Demand: 0🟨 (No line)
 ```
 
 **What would you take?**
 
 A. Draft 2🟨 from Factory 1 immediately  
 B. Draft 1⬛ from Factory 1 to deny opponent's Line 1, delaying Yellow  
-C. Draft 3🟨 from Factory 2  
+C. Draft 5🟨 from Factory 2  
 
 **Answer:** B
 
-**Why:** Yellow is **abundant and uncontested** (S=7 >> D=2, opponent cannot legally take Yellow). Yellow is 100% safe to delay. Take 1⬛ now to deny opponent's pick; the Yellow tiles will still be waiting for you later.
+**Why:** Yellow is **abundant and uncontested** for board-building (S=7 >> D=2, opponent has no open line for Yellow). Yellow is safe to delay. Take 1⬛ now to deny opponent's pick; the Yellow tiles will still be waiting for you later.
 
-**When the rule fails:** If delaying Yellow allows opponent to merge Yellow into a massive 6-tile center pile.
+**When the rule fails:** If opponent is willing to draft 5🟨 directly to their floor purely to deny you.
 
 ---
 
@@ -340,10 +349,12 @@ C. Draft 3🟨 from Factory 2
 ### Position 1
 
 ```text
-Center Pool: 3 separate color groups (3⬛, 3🟨, 1🟥)
-Your Line 1: open [◽] (can absorb 1🟥)
-Your Capacities: A_you(Black)=0, A_you(Yellow)=0, A_you(Red)=1
-Opponent Capacities: A_opp(Black)=0, A_opp(Yellow)=0, A_opp(Red)=0
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Center: 3⬛, 3🟨, 1🟥
+w  b  y  r  k       2: [◽][◽]            (3 separate color groups)
+k  w  b  y  r       3: [◽][◽][◽]            A_you: Black=0, Yellow=0, Red=1
+r  k  w  b  y       4: [◽][◽][◽][◽]        A_opp: Black=0, Yellow=0, Red=0
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
@@ -354,7 +365,7 @@ C. Draft 3🟨 from Center to Floor (-4 pts)
 
 **Answer:** A
 
-**Why:** There are 3 color groups left in center. By taking 1🟥 now (which you absorb cleanly into Line 1), exactly 2 bad groups remain (3⬛ and 3🟨). Opponent MUST take one of the bad 3-tile groups on their turn (-4 floor pts). Then you take the remaining bad group (-4 floor pts). If you took a 3-tile group first, opponent would snatch 1🟥 for free and leave you to take BOTH bad groups (-8 pts total)!
+**Why:** There are 3 color groups left in center. By taking 1🟥 now (which you absorb cleanly into Line 1), exactly 2 bad groups remain (3⬛ and 3🟨). Opponent MUST take one of the bad 3-tile groups on their turn (-4 floor pts). Then you take the remaining bad group (-4 floor pts). If you took a 3-tile group first, opponent would snatch 1🟥 for free and leave you BOTH bad groups (-8 pts total)!
 
 **When the rule fails:** If opponent can take the 1-marker instead of a 3-tile group to shift parity back onto you.
 
@@ -363,10 +374,12 @@ C. Draft 3🟨 from Center to Floor (-4 pts)
 ### Position 2
 
 ```text
-Center Pool: 3🟥
-Factory 1: 2🟦, 2🟥
-Your Line 4 needs 1🟥 ([🟥][🟥][🟥][◽])
-Opponent Capacities: A_opp(Red) = 1
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Factory 1: 2🟦, 2🟥
+w  b  y  r  k       2: [◽][◽]            Center: 3🟥
+k  w  b  y  r       3: [◽][◽][◽]
+r  k  w  b  y       4: [🟥][🟥][🟥][◽]
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
@@ -377,7 +390,7 @@ C. Draft 3🟥 from Center
 
 **Answer:** B
 
-**Why:** If you take 2🟦 from Factory 1, its 2🟥 spills into center, merging with 3🟥 to form a single 5🟥 pile. That collapses two color groups into one, giving opponent the initiative to force 5🟥 onto your floor. Taking 2🟥 directly from Factory 1 completes your Line 4 and leaves center manageable.
+**Why:** If you take 2🟦 from Factory 1, its 2🟥 spills into center, merging with 3🟥 to form a single 5🟥 pile. That collapses two color groups into one, giving opponent the initiative to force 5🟥 onto your floor. Taking 2🟥 directly from Factory 1 completes your Line 4 and keeps center manageable.
 
 **When the rule fails:** If taking 2🟦 completes a row that triggers game end in your favor.
 
@@ -394,17 +407,19 @@ C. Draft 3🟥 from Center
 ### Position 1
 
 ```text
-Current Floor: 2 tiles already filled (-2 pts)
-Marker Slot: Slot 3 (-2 pts marginal cost)
-Subsequent Floor Tile: Slot 4 (-2 pts marginal cost)
-Next Round Priorities: No high-value incomplete long lines on your board.
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Center: 1-Marker, 2🟦
+w  b  y  r  k       2: [◽][◽]            Factory 1: 2🟦, 2🟨
+k  w  b  y  r       3: [◽][◽][◽]            Floor: 2 tiles filled (-2 pts)
+r  k  w  b  y       4: [◽][◽][◽][◽]        Marker Slot: Slot 3 (-2 pts)
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
 
 A. Take First Player Marker from Center (-2 pts)  
 B. Take 2🟦 from Factory 1 to Line 2  
-C. Take 3🟨 from Factory 2 to Line 3  
+C. Take 2🟨 from Factory 1 to Line 2  
 
 **Answer:** B
 
@@ -417,21 +432,23 @@ C. Take 3🟨 from Factory 2 to Line 3
 ### Position 2
 
 ```text
-Current Floor: 0 tiles filled (-0 pts)
-Marker Slot: Slot 1 (-1 pt marginal cost)
-Your Line 5: [🟦][🟦][🟦][🟦][◽] (needs 1🟦 for a 15-pt placement)
-Bag State: Only 3 Blue tiles remain in the bag for next round's draw.
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Center: 1-Marker
+w  b  y  r  k       2: [◽][◽]            Factory 1: 2🟨, 2⬜
+k  w  b  y  r       3: [◽][◽][◽]            Floor: 0 tiles (-0 pts)
+r  k  w  b  y       4: [◽][◽][◽][◽]        Marker Slot: Slot 1 (-1 pt)
+y  r  k  w  b       5: [🟦][🟦][🟦][🟦][◽] (Needs 1🟦)
 ```
 
 **What would you take?**
 
 A. Take First Player Marker from Center (-1 pt)  
 B. Take 2🟨 from Factory 1 to Line 2  
-C. Take 1⬜ from Factory 2 to Line 1  
+C. Take 2⬜ from Factory 1 to Line 2  
 
 **Answer:** A
 
-**Why:** The marker costs only -1 floor point. It guarantees you get first pick next round to secure one of the 3 remaining Blue tiles, locking in your 15-point Row 5 completion before opponent can steal it. Initiative is worth far more than 1 point here.
+**Why:** The marker costs only -1 floor point. It guarantees you get first pick next round to secure one of the remaining Blue tiles in the bag draw, locking in your 15-point Row 5 completion before opponent can steal it. Initiative is worth far more than 1 point here.
 
 **When the rule fails:** If opponent can complete a 20-point wall cascade this round while you spend a turn on the marker.
 
@@ -450,31 +467,37 @@ C. Take 1⬜ from Factory 2 to Line 1
 ### Position 1
 
 ```text
-Your Line 3: [🟨][🟨][◽] (needs 1🟨 for +6 wall placement)
-Opponent Line 4: [🟨][🟨][🟨][◽] (needs 1🟨 for +7 Column Bonus)
-Factory 1: 1🟨, 3⬛
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Factory 1: 1🟨, 3⬛
+w  b  y  r  k       2: [◽][◽]            Your Line 3: [🟨][🟨][◽]
+k  w  b  y  r       3: [🟨][🟨][◽]         Opp Line 4: [🟨][🟨][🟨][◽]
+r  k  w  b  y       4: [◽][◽][◽][◽]        (Opp needs 1🟨 for Column Bonus)
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
 
 A. Draft 1🟨 from Factory 1 to Line 3  
-B. Draft 3🟦 from Center to Line 4 for +2 pts  
-C. Draft 3⬛ from Factory 1 to Floor (-4 pts) to block  
+B. Draft 3⬛ from Factory 1 to Floor (-4 pts)  
+C. Take starting player marker  
 
 **Answer:** A
 
 **Why:** Drafting 1🟨 does double duty! It completes your Line 3 for a +6 wall placement AND steals the exact single 🟨 opponent needs for their +7 column bonus. Double-duty moves produce massive point swings (+13 margin effect) without taking floor penalties or wasting turns.
 
-**When the rule fails:** If taking 3🟦 from Center triggers an immediate game end when you are leading.
+**When the rule fails:** If taking a center group triggers an immediate game end when you are leading.
 
 ---
 
 ### Position 2
 
 ```text
-Your Line 2: [◽][◽] (needs 2🟦)
-Opponent Board: A_opp(Red) = 0
-Factory 1: 2🟦, 2🟥
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Factory 1: 2🟦, 2🟥
+w  b  y  r  k       2: [◽][◽]            Your Line 2: [◽][◽] (needs 2🟦)
+k  w  b  y  r       3: [◽][◽][◽]            Opponent: A_opp(Red) = 0
+r  k  w  b  y       4: [◽][◽][◽][◽]
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
@@ -485,7 +508,7 @@ C. Take starting player marker
 
 **Answer:** A
 
-**Why:** Drafting 2🟦 fills your Line 2 (+3 pts) AND spills 2🟥 into center. Opponent has A_opp(Red) = 0, forcing the 2🟥 directly onto their floor (-2 pts). Net swing: +5 points in one move.
+**Why:** Drafting 2🟦 fills your Line 2 (+3 pts upon wall tiling) AND spills 2🟥 into center. Opponent has A_opp(Red) = 0, forcing the 2🟥 directly onto their floor (-2 pts). Net swing: +5 points in one move.
 
 **When the rule fails:** If opponent can absorb Red into a newly opened Line 5.
 
@@ -502,10 +525,12 @@ C. Take starting player marker
 ### Position 1
 
 ```text
-Center Pool: 4🟥
-Opponent Line 1: open [◽] (A_opp(Red) = 1)
-Factory 1: 1🟨, 2🟥
-Your Line 3: open [◽][◽][◽]
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Center: 4🟥
+w  b  y  r  k       2: [◽][◽]            Factory 1: 1🟨, 2🟥
+k  w  b  y  r       3: [◽][◽][◽]            Opp Line 1: open [◽]
+r  k  w  b  y       4: [◽][◽][◽][◽]        A_opp(Red) = 1
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
@@ -525,10 +550,12 @@ C. Draft 1🟥 from Center to Line 1
 ### Position 2
 
 ```text
-Your Board: Line 1 complete ([🟦]), Line 2 complete ([🟨][🟨]), Line 3 complete ([🟥][🟥][🟥])
-Current Score: You 38, Opponent 30 (+8 lead)
-Line 4: [⬛][⬛][⬛][◽] (1⬛ completes Row 4 and triggers game end)
-Factory 1: 1⬛, 3⬜
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Factory 1: 1⬛, 3⬜
+w  b  y  r  k       2: [◽][◽]            Score: You 38, Opponent 30
+k  w  b  y  r       3: [◽][◽][◽]            Line 4: [⬛][⬛][⬛][◽]
+🟥  ⬛  ⬜  b  🟨    4: [⬛][⬛][⬛][◽]        (1⬛ finishes Row 4 on wall)
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
@@ -539,7 +566,7 @@ C. Take starting player marker
 
 **Answer:** A
 
-**Why:** Drafting 1⬛ completes Line 4, placing a tile in Row 4 to complete a horizontal row and trigger game end. Since you lead 38 to 30 with superior wall bonuses, threatening immediate game end forces opponent into damage-control mode.
+**Why:** Drafting 1⬛ fills Line 4, guaranteeing that wall tiling completes Row 4 and triggers game end. Since you lead 38 to 30 with superior wall bonuses, threatening immediate game end forces opponent into damage-control mode.
 
 **When the rule fails:** If opponent has a secret +10 color bonus that activates upon game end and passes your score.
 
@@ -558,27 +585,23 @@ C. Take starting player marker
 ### Position 1
 
 ```text
-Wall Grid:
-◽ ◽ ◽ ◽ ◽
-◽ ⬜ 🟦 ◽ ◽    (Row 2 Col 2 & 3 placed)
-◽ ◽ ◽ ◽ ◽    (Row 3 Col 2 & 3 empty)
-◽ 🟥 ⬛ ◽ ◽    (Row 4 Col 2 & 3 placed)
-◽ ◽ ◽ ◽ ◽
-
-Target Placement Options for Row 3:
-Choice A: Place at Row 3 Col 2 (⬜) -> connects (2,2) ⬜ and (4,2) 🟥 vertically!
-Choice B: Place at Row 1 Col 5 (⬜) -> isolated placement.
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Choice A: Place ⬜ at Row 3 Col 1 (w)
+w  🟦 🟦 r  k       2: [◽][◽]            (bridges (2,1)⬜ and (4,1)🟥)
+k  w  b  y  r       3: [◽][◽][◽]            Choice B: Place ⬜ at Row 1 Col 4 (w)
+r  ⬛ ⬛ b  y       4: [◽][◽][◽][◽]        (isolated placement)
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What pattern line do you fill?**
 
-A. Fill Line 3 with White (⬜) to place at (3,2)  
-B. Fill Line 1 with White (⬜) to place at (1,5)  
+A. Fill Line 3 with White (⬜) to place at (3,1)  
+B. Fill Line 1 with White (⬜) to place at (1,4)  
 C. Fill Line 5 with White (⬜)  
 
 **Answer:** A
 
-**Why:** Placing White at (3,2) on Row 3 forms a **bridge** between (2,2) ⬜ and (4,2) 🟥! It scores 3 points vertically immediately AND creates 4 future scoring hooks (left, right, up, down) for surrounding tiles. Placing at (1,5) scores only 1 point with 1 hook.
+**Why:** Placing White at (3,1) on Row 3 forms a **bridge** between (2,1) ⬜ and (4,1) 🟥! It scores 3 points vertically immediately (vertical: (2,1), (3,1), (4,1) = 3 pts) AND creates 4 future scoring hooks for surrounding tiles. Placing at (1,4) scores only 1 point with 1 hook.
 
 **When the rule fails:** If completing Line 1 takes 1 turn while Line 3 takes 3 turns and you need quick points.
 
@@ -587,23 +610,23 @@ C. Fill Line 5 with White (⬜)
 ### Position 2
 
 ```text
-Wall Grid:
-◽ ◽ ◽ ◽ ◽
-◽ ◽ 🟨 ◽ ◽    (Row 2 Col 3 placed)
-◽ ◽ ◽ ◽ ◽    (Row 3 Col 3 empty)
-◽ ◽ ⬜ ◽ ◽    (Row 4 Col 3 placed)
-◽ ◽ ◽ ◽ ◽
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Choice A: Place 🟦 at Row 3 Col 2 (b)
+w  b  🟨 r  k       2: [◽][◽]            (bridges (2,2)🟨 and (4,2)⬜)
+k  w  b  y  r       3: [◽][◽][◽]            Choice B: Place 🟦 at Row 1 Col 0 (b)
+r  k  ⬜ b  y       4: [◽][◽][◽][◽]
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What pattern line do you fill?**
 
-A. Fill Line 3 with Blue (🟦) to place at (3,3)  
-B. Fill Line 1 with Blue (🟦) to place at (1,1)  
+A. Fill Line 3 with Blue (🟦) to place at (3,2)  
+B. Fill Line 1 with Blue (🟦) to place at (1,0)  
 C. Fill Line 5 with Blue (🟦)  
 
 **Answer:** A
 
-**Why:** Row 3 Col 3 is Blue (🟦). Placing Blue at (3,3) bridges (2,3) 🟨 and (4,3) ⬜ into a 3-tile vertical column (+3 pts) plus horizontal connections (+2 pts) = 5 points total! It transforms two isolated tiles into a high-scoring cluster.
+**Why:** Row 3 Col 2 is Blue (🟦). Placing Blue at (3,2) bridges (2,2) 🟨 and (4,2) ⬜ into a 3-tile vertical column (+3 pts) plus horizontal connections (+2 pts) = 5 points total! It transforms two isolated tiles into a high-scoring cluster.
 
 **When the rule fails:** If Blue is needed to block opponent's Line 5 completion.
 
@@ -613,31 +636,30 @@ C. Fill Line 5 with Blue (🟦)
 
 **Rule:** If ending now gives you a winning projected final score (wall + floor + bonuses), close the door. If ending loses and another round offers comeback value, keep it open.
 
-**When it matters:** Rounds 4–5 when a horizontal row completion is possible.
+**When it matters:** Rounds 4–5 when filling a pattern line will complete a horizontal row during wall tiling.
 
 ---
 
 ### Position 1
 
 ```text
-Current Score: You 42, Opponent 38 (+4 lead)
-Line 3: [🟨][🟨][🟨] (Complete! Will place tile in Row 3 to finish horizontal row)
-Projected Endgame Audit:
-- Wall Tiling Phase: You +5, Opponent +4
-- Bonuses: You +2 (1 Row), Opponent +7 (1 Column)
-- Floor: You 0, Opponent -1
-- Projected Final Score: YOU 49, OPPONENT 48  (YOU WIN BY 1)
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Current Score: You 42, Opponent 38
+w  b  y  r  k       2: [◽][◽]            Line 3: [🟨][🟨][◽] (needs 1🟨)
+⬛  ⬜  b  🟨  🟥    3: [🟨][🟨][◽]         Factory 1: 1🟨, 3⬛
+r  k  w  b  y       4: [◽][◽][◽][◽]        Projected Score: You 49, Opp 48
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What do you do?**
 
-A. Complete Row 3 and trigger game end  
-B. Intentionally dump Line 3 to floor to extend game  
-C. Delay wall placement  
+A. Draft 1🟨 to fill Line 3 and trigger game end  
+B. Draft 3⬛ to Line 4 to avoid completing Row 3  
+C. Take starting player marker  
 
 **Answer:** A
 
-**Why:** Your projected final score after wall tiling and end-game bonuses is **49 to 48 in your favor**. Even though opponent gets a +7 column bonus, you still win by 1 point. Triggering game end now locks in your victory before opponent can build more bonuses next round.
+**Why:** Drafting 1🟨 fills Line 3, ensuring wall tiling completes Row 3 and triggers game end. Your projected final score after wall tiling and end-game bonuses is **49 to 48 in your favor**. Even though opponent gets a +7 column bonus, you still win by 1 point. Triggering game end now locks in your victory.
 
 **When the rule fails:** If an uncounted floor penalty drops your projected total below 48.
 
@@ -646,24 +668,23 @@ C. Delay wall placement
 ### Position 2
 
 ```text
-Current Score: You 35, Opponent 40 (-5 behind)
-Line 1: [🟦] (Complete! Placing in Row 1 triggers game end)
-Projected Endgame Audit if Game Ends Now:
-- You score +6 wall pts -> Final: 41
-- Opponent scores +9 wall/bonus pts -> Final: 49  (YOU LOSE BY 8)
-If Game Extends to Round 5:
-- You have Line 4 & Line 5 set up for +14 points; Opponent has no long lines.
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Current Score: You 35, Opponent 40
+w  b  y  r  k       2: [◽][◽]            Line 1: [◽] (needs 1🟦)
+k  w  b  y  r       3: [◽][◽][◽]            Factory 1: 1🟦, 3⬛
+r  k  w  b  y       4: [◽][◽][◽][◽]        Projected if End Now: You 41, Opp 49
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What do you do?**
 
-A. Trigger game end now with Line 1  
-B. Intentionally delay completing Line 1 to keep game open for Round 5  
+A. Draft 1🟦 to Line 1 to trigger game end  
+B. Draft 3⬛ to Line 4 to keep game open for Round 5  
 C. Draft floor tiles  
 
 **Answer:** B
 
-**Why:** Ending the game now results in a projected loss (41 to 49). Current score lead is not the decision metric — **projected final score** is. Keeping the door open gives you Round 5 where your superior Line 4/5 setup can generate a +14 point comeback.
+**Why:** Filling Line 1 now results in a projected loss (41 to 49). Current score lead is not the decision metric — **projected final score** is. Keeping the door open gives you Round 5 where your superior Line 4/5 setup can generate a +14 point comeback.
 
 **When the rule fails:** If opponent will complete a full color bonus (+10) in Round 5.
 
@@ -671,7 +692,7 @@ C. Draft floor tiles
 
 ## Motif: Zero-Floor Discount `[Advanced]`
 
-**Rule:** Once your already-committed floor loss will reduce your post-wall score to zero, additional floor penalties up to that same zero bound have zero marginal scoreboard cost.
+**Rule:** Once your already-committed floor loss will reduce your post-wall score to zero, additional floor penalties up to that same zero bound have zero marginal scoreboard cost. The floor can be free. The turn never is.
 
 **When it matters:** Rounds 1–2 when scores are low and heavy floor penalties are being taken.
 
@@ -680,27 +701,23 @@ C. Draft floor tiles
 ### Position 1
 
 ```text
-Score before Round 1 Tiling: 0 pts
-Expected Wall Scoring this round: +2 pts
-Current Floor Status: 3 tiles filled (-4 floor pts: -1, -1, -2)
-Net Score Calculation: 2 wall pts - 4 floor pts = -2 → Bounded at 0 pts (Score cannot drop below 0!)
-
-Tactical Opportunity:
-Factory 1 has 2⬛. Opponent needs 1⬛ for a +7 Column Bonus.
-Taking 2⬛ to Floor adds 2 floor tiles (-2 pts each = -4 pts, total floor -8 pts).
-New Net Score: 2 wall pts - 8 floor pts = -6 → STILL Bounded at 0 pts!
-Marginal Scoreboard Cost of the 2 additional floor tiles = 0 POINTS!
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Score before Tiling: 0 pts
+w  b  y  r  k       2: [◽][◽]            Expected Wall Score: +2 pts
+k  w  b  y  r       3: [◽][◽][◽]            Current Floor: 3 tiles (-4 pts)
+r  k  w  b  y       4: [◽][◽][◽][◽]        Factory 1: 2⬛, 2🟨
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]        (Opp needs 1⬛ for Column Bonus)
 ```
 
 **What would you take?**
 
 A. Take 2⬛ from Factory 1 to Floor to deny opponent's +7 Column Bonus  
-B. Take 2🟨 from Factory 2 to Line 2  
+B. Take 2🟨 from Factory 1 to Line 2  
 C. Take starting player marker  
 
 **Answer:** A
 
-**Why:** Because your score is already hitting the 0 floor bound (-2 rounds up to 0), taking 2 additional floor tiles has **zero marginal cost on the scoreboard** (-6 also rounds up to 0!). You deny opponent a +7 column bonus for ZERO actual point loss to yourself.
+**Why:** Because your score is already hitting the 0 floor bound (-2 rounds up to 0), taking 2 additional floor tiles has **zero marginal cost on the scoreboard** (-6 also rounds up to 0!). You deny opponent a +7 column bonus for ZERO actual point loss to yourself. Note: The floor penalty is free, but you still spend your turn on denial instead of building.
 
 **When the rule fails:** If your wall scoring this round unexpectedly produces +9 points instead of +2.
 
@@ -709,19 +726,18 @@ C. Take starting player marker
 ### Position 2
 
 ```text
-Score before Tiling: 1 pt
-Expected Wall Scoring: +3 pts (Total before floor: 4 pts)
-Current Floor Status: 4 tiles filled (-6 floor pts: -1, -1, -2, -2)
-Net Score: 4 - 6 = -2 → Bounded at 0 pts.
-
-Available Pick: Center has 2 Red tiles. Taking them adds 2 floor tiles (Slot 5: -2, Slot 6: -3 = -5 pts).
-Total Floor: -11 pts. New Net Score: 4 - 11 = -7 → STILL Bounded at 0 pts!
+Wall Grid:           Pattern Lines:       Options Available:
+b  y  r  k  w       1: [◽]               Score before Tiling: 1 pt
+w  b  y  r  k       2: [◽][◽]            Expected Wall Score: +3 pts
+k  w  b  y  r       3: [◽][◽][◽]            Current Floor: 4 tiles (-6 pts)
+r  k  w  b  y       4: [◽][◽][◽][◽]        Center: 2🟥
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]
 ```
 
 **What would you take?**
 
-A. Take 2 Red to Floor to deny opponent's Row 4 completion  
-B. Take safe 1 White to Line 1  
+A. Take 2🟥 to Floor to deny opponent's Row 4 completion  
+B. Take safe 1🟨 from Factory 1 to Line 1  
 C. Take starting player marker  
 
 **Answer:** A
@@ -742,7 +758,7 @@ Use this quick-reference checklist during games until pattern recognition become
 - [ ] **Row-5 Sacrifice** — Is paying a small floor penalty cheaper than locking Row 5?
 
 ### 2. Draft Control
-- [ ] **Poison Spill** — What toxic tiles does this factory dump into the center?
+- [ ] **Poison Spill** — What toxic tiles does this factory dump into the center? (Poison needs delivery!)
 - [ ] **Contested Color** — Is visible supply less than total committed demand?
 - [ ] **Poisoned Turn** — Who gets stuck with the move when remaining groups are ugly?
 - [ ] **Marker Price** — What is the marker's true marginal floor cost vs. initiative value?
@@ -754,4 +770,4 @@ Use this quick-reference checklist during games until pattern recognition become
 ### 4. Wall & Endgame
 - [ ] **Cross / Bridge** — Does this wall tile connect existing tiles and create future hooks?
 - [ ] **Close the Door** — Does triggering game end now yield a winning projected final score?
-- [ ] **Zero-Floor Discount** — Is your score low enough that extra floor tiles cost 0 points?
+- [ ] **Zero-Floor Discount** — Is your score low enough that extra floor tiles cost 0 points? (The floor can be free. The turn never is.)

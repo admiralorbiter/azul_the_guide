@@ -152,10 +152,10 @@ Before each factory pick, classify the spill type:
 
 ```text
 Factory 3: TAKE 2 blue | SPILL 1 red, 1 yellow
-Spill type: opponent-toxic (red exceeds their capacity)
+Spill type: HELPS ME (toxic consolidation: red exceeds their capacity)
 ```
 
-Categories: safe, opponent-toxic, self-toxic, consolidating, delayed poison.
+Categories: SAFE, HELPS ME, HELPS THEM (with optional mechanisms: toxic consolidation, denial, color rescue).
 
 ---
 
@@ -309,6 +309,7 @@ Copy this after any serious game:
 - First-player marker purchase that paid off / did not?
 - Did I correctly identify the final round?
 - Did I calculate bonuses before triggering the end?
+- Motif I missed or misapplied:
 
 ### One thing to train next game
 -
@@ -419,6 +420,8 @@ Goal: never accidentally strand a one-home color by consuming its row with a fle
 ## Block G — Take + Spill
 
 For five games, before every factory pick, say aloud: "I take [X]. I spill [Y] to center. Spill type: [classification]."
+
+Categories: SAFE, HELPS ME, HELPS THEM (with optional mechanisms: toxic consolidation, denial, color rescue).
 
 ## Block H — Forcing moves
 

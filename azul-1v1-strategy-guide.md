@@ -27,9 +27,9 @@ Do **not** reduce this to “always hate-draft.” A denial move has an opportun
 Think of every position as having five interacting resources:
 
 1. **Points** — current scoring and credible future bonuses.
-2. **Capacity** — how many incoming tiles you can safely absorb.
-3. **Flexibility** — how many colors/lines remain viable.
-4. **Tempo / initiative** — who controls the first selection next round and who is likely to inherit ugly final picks this round.
+2. **Flexibility** — how many tiles you can absorb and where (Capacity, Choice, Collision).
+3. **Draft control** — what you take, what you spill, and who inherits ugly picks (Take+Spill, Poisoned Turn).
+4. **Initiative** — who controls the first selection next round.
 5. **Trigger control** — who can end the game, and whether ending now helps them.
 
 A move that appears inefficient in raw points may be excellent if it preserves capacity, wins initiative, or removes a decisive opponent threat.
@@ -388,6 +388,8 @@ Opponent needs:        0
 **Scarce + needed by both = contested.** Act now.
 **Abundant + only needed by you = safe to delay.** Do something else first.
 
+`[HEURISTIC]` An opponent can always draft a color directly to the floor just to deny you. "Uncontested" means they have no board-building reason to take it — not that they cannot. Before delaying, check: *is supply tight, and would stealing it be cheap for my opponent?*
+
 This gives Section 6.2's "delay safe pickups" an operational definition of *safe*.
 
 ## 6.2 Delay safe pickups
@@ -510,6 +512,8 @@ A three-tile pile can be devastating if $A_{\text{opp}}(c) = 0$. A six-tile pile
 
 The trap is about **pile size relative to legal capacity**, not an arbitrary pile threshold.
 
+Absorption capacity tells you who gets hurt by a pile. Poisoned Turn tells you who has to drink it. Poison needs delivery.
+
 ## 8.5 Forcing moves: Azul sente
 
 `[HEURISTIC]` Some moves essentially say "I am doing my thing." Others say "if you do not react to what I just did, something bad happens." The second type are **forcing moves**.
@@ -592,6 +596,8 @@ Evaluate **marginal floor cost**, not only the number of overflow tiles.
 Suppose you have 1 point after wall scoring and the floor already costs -1. Adding another tile might change the printed penalty from -1 to -3 — but your actual score only falls from 1 to 0. The additional -2 has zero marginal scoreboard cost.
 
 `[HEURISTIC]` When your score is near zero (especially in Rounds 1–2), some floor penalties are effectively discounted. This can justify aggressive early denials, marker grabs, or tactical sacrifices that would look expensive at higher scores.
+
+The floor can be free. The turn never is. Eliminating scoreboard cost does not eliminate opportunity cost.
 
 `[TEST]` The score floor likely creates counterintuitive early-game sacrifice opportunities. This should be validated computationally.
 
@@ -703,7 +709,7 @@ Calculate:
 - larger potential swings,
 - choices that leave multiple future paths open.
 
-The research question is not whether this principle exists—it is **at what lead and game stage** a human player should switch modes. A computational finding like "up 12+ entering Round 5 with a completable row: collapse the game" would be directly actionable.
+`[TEST]` This principle is plausible but not yet validated for Azul specifically. The research question is at what lead and game stage switching modes actually improves outcomes. See H11 in the research notes.
 
 ---
 

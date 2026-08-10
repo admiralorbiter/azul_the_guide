@@ -63,6 +63,7 @@ For player $p$, color $c$, and pattern line $i$, let $r_i$ be its remaining capa
 
 The line is legal for $c$ if:
 
+- it has positive remaining capacity ($r_i > 0$),
 - it is empty or already contains $c$, and
 - the corresponding wall row does not already contain $c$.
 
@@ -203,10 +204,12 @@ $$D(c) = D_{\text{you}}(c) + D_{\text{opp}}(c)$$
 
 where $D_p(c)$ estimates how many tiles of $c$ player $p$ needs to complete their most important pattern line(s) for $c$.
 
-The pressure ratio $S(c) - D(c)$ captures whether a color is contested:
+The visible color surplus $V(c) = S(c) - D(c)$ captures whether a color is contested:
 
-- $S(c) - D(c) \gg 0$: abundant, safe to delay.
-- $S(c) - D(c) \approx 0$ or negative: scarce, contested, take early.
+- $V(c) \gg 0$: abundant, safe to delay.
+- $V(c) \approx 0$ or negative: scarce, contested, take early.
+
+Note: $D_{\text{opp}}(c)$ captures only tiles the opponent needs for their board. In 1v1 play, an opponent may also create *denial demand* by taking $c$ to floor purely to deny access. A more complete model adds a denial-demand term, but visible color surplus $V(c)$ serves as a useful first-order feature.
 
 This gives Section 6.2 of the strategy guide ("delay safe pickups") a quantifiable decision criterion.
 
@@ -514,9 +517,9 @@ Measure both strength and explanation quality.
 
 ## H13 — Color pressure as delay signal
 
-**Question:** Does the pressure ratio $S(c) - D(c)$ predict whether delaying a pickup is safe better than simpler heuristics (e.g., "are there multiple sources")?
+**Question:** Does the visible color surplus $V(c) = S(c) - D(c)$ predict whether delaying a pickup is safe better than simpler heuristics (e.g., "are there multiple sources")?
 
-**Method:** For states where the player delays a pickup, measure whether the delay led to losing access to the color. Correlate with pressure ratio.
+**Method:** For states where the player delays a pickup, measure whether the delay led to losing access to the color. Correlate with visible color surplus.
 
 ---
 
