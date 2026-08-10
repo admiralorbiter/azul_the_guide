@@ -72,7 +72,36 @@ Before either player takes a center pile that overflows by 2+, you predicted **w
 
 ---
 
-# 4. Drill: draft the leftovers
+# 4. Drill: protect the last home
+
+## Goal
+
+See placement bottlenecks before they strand a color.
+
+At the start of each round and again mid-round, scan your board and record:
+
+```text
+Color     Legal rows     Homes     Shared with?
+Blue      2, 4, 5        3
+Red       4, 5           2         Blue
+Black     5              1 ←       Red, Blue
+Yellow    1, 3           2
+White     2, 3, 5        3
+```
+
+Then ask:
+
+- Which colors have only 1 home?
+- Are any two constrained colors competing for the same row?
+- If I place a flexible color in a shared row, does it strand a fragile color?
+
+## Success standard
+
+Play an entire game where you never accidentally strand a one-home color by using its sole legal row for something else.
+
+---
+
+# 5. Drill: draft the leftovers
 
 ## Goal
 
@@ -92,9 +121,20 @@ Then ask:
 
 Play an entire game with **zero surprise center consolidations** caused by your own factory pick.
 
+### Advanced variant: classify the spill
+
+Before each factory pick, classify the spill type:
+
+```text
+Factory 3: TAKE 2 blue | SPILL 1 red, 1 yellow
+Spill type: opponent-toxic (red exceeds their capacity)
+```
+
+Categories: safe, opponent-toxic, self-toxic, consolidating, delayed poison.
+
 ---
 
-# 5. Drill: solve the tail
+# 6. Drill: solve the tail
 
 ## Goal
 
@@ -125,7 +165,7 @@ Before the final two picks, you can state which player will take the last group 
 
 ---
 
-# 6. Drill: first-player price
+# 7. Drill: first-player price
 
 Each time the center is first opened, pause and record:
 
@@ -143,7 +183,7 @@ After the next round begins, mark whether the predicted benefit actually occurre
 
 ---
 
-# 7. Drill: one-color bag tracking
+# 8. Drill: one-color bag tracking
 
 Start simple.
 
@@ -159,7 +199,27 @@ Only add a second color after you can track one without distracting yourself fro
 
 ---
 
-# 8. Drill: endgame audit
+# 9. Drill: read the temperature
+
+## Goal
+
+Learn to allocate thinking time to positions that reward it.
+
+At each turn, classify the position before choosing a move:
+
+```text
+Temperature:  Cold / Warm / Hot
+Why:          [one-sentence reason]
+Time budget:  Play fast / Compare candidates / Calculate to round end
+```
+
+## Success standard
+
+Over five games, you should identify **every hot position** before making your move. Hot = forced center pickups, game-ending threats, severe overflow risk, or tight last-pick structure.
+
+---
+
+# 10. Drill: endgame audit
 
 Beginning in Round 4, ask at the start of every round:
 
@@ -178,7 +238,7 @@ If a move can trigger the end, **calculate first, trigger second**.
 
 ---
 
-# 9. Post-game review template
+# 11. Post-game review template
 
 Copy this after any serious game:
 
@@ -231,11 +291,11 @@ Copy this after any serious game:
 
 ---
 
-# 10. Metrics worth tracking over 20+ games
+# 12. Metrics worth tracking over 20+ games
 
 Do not judge strategy from one memorable win. Track repeated behavior.
 
-## 10.1 Floor differential
+## 12.1 Floor differential
 
 $$\text{FD} = \text{Opponent floor penalty} - \text{Your floor penalty}$$
 
@@ -247,29 +307,29 @@ Separate:
 - intentional strategic floor,
 - tactical mistake floor.
 
-## 10.2 Wall-placement efficiency
+## 12.2 Wall-placement efficiency
 
 $$E = \frac{\text{wall-tiling points}}{\text{number of wall tiles placed}}$$
 
 Do not assume a target of 2.0. Build your own distribution and see whether winners consistently differ from losers.
 
-## 10.3 Cross-score rate
+## 12.3 Cross-score rate
 
 Percentage of wall placements that scored both horizontal and vertical lines.
 
 This measures whether your geometry is creating intersections rather than isolated placements.
 
-## 10.4 Stranded long-line turns
+## 12.4 Stranded long-line turns
 
 Count rounds in which row 4 or 5 begins and ends partially filled **without the partial line having served a deliberate strategic purpose**.
 
 This is more informative than simply counting incomplete long lines.
 
-## 10.5 Forced overflow created
+## 12.5 Forced overflow created
 
 Total opponent floor tiles that were a direct result of a center pile you intentionally consolidated beyond their absorption capacity.
 
-## 10.6 Initiative conversion
+## 12.6 Initiative conversion
 
 When you take the starting-player marker, did first pick next round produce the benefit you predicted?
 
@@ -282,13 +342,13 @@ predicted benefit: secure 3 blue for row 3
 realized benefit: yes/no
 ```
 
-## 10.7 End-trigger accuracy
+## 12.7 End-trigger accuracy
 
 For every game-ending decision, record whether your pre-trigger final-score projection was correct within 2 points.
 
 ---
 
-# 11. Five-game focused training blocks
+# 13. Five-game focused training blocks
 
 ## Block A — No-surprise center
 
@@ -325,9 +385,23 @@ For five games, every time you start row 4/5, state:
 
 For five games, begin explicit final-score projection in Round 4. Do not trigger the end without writing/mentally calculating bonuses.
 
+## Block F — Constraint scan
+
+For five games, at the start of each round count homes per color.
+
+Goal: never accidentally strand a one-home color by consuming its row with a flexible color.
+
+## Block G — Take + Spill
+
+For five games, before every factory pick, say aloud: "I take [X]. I spill [Y] to center. Spill type: [classification]."
+
+## Block H — Forcing moves
+
+For five games, before choosing your move, first scan for any forcing move. If one exists, evaluate it before considering ordinary scoring moves.
+
 ---
 
-# 12. Experiments for the Rust/WASM practice tool
+# 14. Experiments for the Rust/WASM practice tool
 
 The existing practice-tool architecture is well suited to generating tactical puzzles, but scenario selection should be tied to learnable strategic motifs.
 
@@ -338,6 +412,8 @@ Every generated state should be taggable with one or more of:
 - `CROSS_SCORE`
 - `CENTER_FLOOD`
 - `ABSORPTION_ASYMMETRY`
+- `LAST_HOME`
+- `CAPACITY_COLLISION`
 - `FIRST_PLAYER_PRICE`
 - `LAST_PICK_PARITY`
 - `ROW5_BUFFER`
@@ -347,6 +423,10 @@ Every generated state should be taggable with one or more of:
 - `GAME_END_TRIGGER`
 - `EXTEND_GAME`
 - `EXACT_TAIL`
+- `TAKE_SPILL`
+- `FORCING_MOVE`
+- `POSITION_TEMPERATURE`
+- `RISK_POSTURE`
 
 ## Scenario quality
 
@@ -385,7 +465,7 @@ Concept: Draft the leftovers.
 
 ---
 
-# 13. When to move beyond heuristics
+# 15. When to move beyond heuristics
 
 Once you can consistently:
 

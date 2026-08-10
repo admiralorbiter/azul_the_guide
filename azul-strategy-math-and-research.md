@@ -106,6 +106,39 @@ where $P$ computes the extra floor penalty from the current occupied floor slots
 
 This is a natural feature for move ordering or practice-tool explanations.
 
+## 3.3 Placement feasibility: homes and collisions
+
+Absorption capacity measures how many tiles of one color a player can absorb in the best single line. A complementary question is: how many pattern lines can legally accept a given color at all?
+
+Define the **home count** for player $p$ and color $c$:
+
+$$H_p(c) = |L_p(c)|
+$$
+
+where $L_p(c)$ is the set of legal pattern lines for color $c$ (as defined in Section 3).
+
+A color with $H_p(c) = 1$ is **fragile**: if its sole legal line is consumed by another color, $c$ becomes unplaceable and all future tiles of $c$ go to the floor.
+
+### Capacity collisions and Hall's condition
+
+Individual home counts can be misleading. Consider colors $c_1, c_2, \ldots, c_k$ that collectively require pattern-line destinations. If the union of their legal line sets is smaller than $k$:
+
+$$\left| \bigcup_{i=1}^{k} L_p(c_i) \right| < k$$
+
+then not all of them can be placed simultaneously. This is a direct application of Hall's marriage theorem: a perfect matching between colors and pattern lines exists if and only if every subset of colors has at least as many collectively available lines.
+
+In practice, the most common violation is the simplest: **two or more one-home colors sharing the same sole legal line**.
+
+### Bottleneck index
+
+A useful evaluator feature:
+
+$$\text{BN}_p = \sum_c \max\left(0, \frac{1}{H_p(c)} - \frac{1}{5}\right)$$
+
+This scores zero for a color with all five rows available and increases as placement options narrow. A differential version $\text{BN}_{\text{opp}} - \text{BN}_{\text{you}}$ captures relative constraint pressure.
+
+The simple human version: count homes per color, watch for ones and twos, and flag any row that multiple constrained colors share.
+
 ---
 
 # 4. Residue vectors: formalizing factory effects
@@ -143,6 +176,19 @@ Interpretation:
 
 Do not treat this exact equation as “solved Azul”; it is a feature proposal.
 
+## 4.2 Spill classification
+
+Human players benefit from a small taxonomy of factory spills. For a move $m$ taking color $c$ from factory $f$, the spill $R(f,c)$ can be classified by its effect on center toxicity:
+
+| Spill type | Condition | Strategic meaning |
+|---|---|---|
+| Safe | $F_p(c', C'_{c'}) = 0$ for both players, all spilled $c'$ | Neither player is hurt |
+| Opponent-toxic | $F_{\text{opp}}(c', C'_{c'}) > F_{\text{you}}(c', C'_{c'})$ for some spilled $c'$ | Spill favors you |
+| Self-toxic | $F_{\text{you}}(c', C'_{c'}) > F_{\text{opp}}(c', C'_{c'})$ for some spilled $c'$ | Spill hurts you |
+| Consolidating | Spill merges with existing center to create $C'_{c'} > \max(A_{\text{you}}(c'), A_{\text{opp}}(c'))$ | Creates a forced-overflow pile |
+
+A move's total value should include both the take value and the spill classification, not just the tiles entering the player's board.
+
 ---
 
 # 5. Floor penalties are marginal, not linear
@@ -166,6 +212,27 @@ The marker goes on the leftmost free floor position and counts as a tile there.
 Its marginal cost is therefore not always one point. A better evaluator computes the difference between the floor score **with** and **without** the marker, including any later tiles shifted to more expensive slots.
 
 This is also why a static “initiative = +1” or “marker = -1” rule is too crude.
+
+## 5.2 Position complexity and calculation allocation
+
+Not all positions warrant equal analysis depth. Define a simple **temperature** heuristic:
+
+$$\text{Temp}(s) = w_1 \cdot \text{groups}_{\text{remaining}}^{-1} + w_2 \cdot \text{overflow}_{\text{risk}} + w_3 \cdot \text{trigger}_{\text{proximity}} + w_4 \cdot \text{forcing}_{\text{count}}$$
+
+where:
+
+- $\text{groups}_{\text{remaining}}^{-1}$ increases as fewer color groups remain (late round),
+- $\text{overflow}_{\text{risk}}$ measures maximum $F_p(c, C_c)$ across dangerous center colors,
+- $\text{trigger}_{\text{proximity}}$ flags whether either player can complete a horizontal row this round,
+- $\text{forcing}_{\text{count}}$ counts moves that create unavoidable opponent overflow or threaten game end.
+
+High temperature signals that heuristic play is insufficient and deeper search or exact calculation is warranted.
+
+### Forcing moves
+
+A move $m$ is **forcing** if the opponent's best reply to $m$ is strictly dominated by responding to $m$'s threat—i.e., ignoring $m$ leads to a substantially worse outcome than any non-threat-related alternative.
+
+In search, forcing moves should be evaluated first (analogous to threat-space search in connection games). For human play, the priority ordering is: forcing threats → forced responses → ordinary improvements.
 
 ---
 
@@ -379,6 +446,40 @@ Compare:
 - full-game MCTS with stochastic refill sampling.
 
 Measure both strength and explanation quality.
+
+## H8 — Constraint-based placement
+
+**Question:** Does home count $H_p(c)$ predict move quality for pattern-line assignment decisions better than absorption capacity alone?
+
+**Method:** For states where the player must choose which pattern line to assign a drafted color to, compare:
+
+- greedy (choose line with best immediate score),
+- capacity-preserving (choose line that maximizes remaining $A_p$ across colors),
+- constraint-aware (choose line that maximizes minimum $H_p(c)$ across remaining colors).
+
+**Secondary question:** How often do real game states violate Hall's condition (i.e., contain an infeasible color-to-line matching)?
+
+## H9 — Spill classification
+
+**Question:** Does explicit spill-type classification improve human factory-selection accuracy compared with unstructured evaluation?
+
+**Method:** Present identical board states to players with and without spill annotations. Measure move quality against engine evaluation.
+
+## H10 — Position temperature
+
+**Question:** Can a simple temperature heuristic reliably identify positions where deeper calculation changes the optimal move?
+
+**Method:** For each state in a self-play corpus, compare depth-1 and depth-N best moves. Correlate disagreement rate with temperature features.
+
+**Prediction:** High-temperature states show significantly more depth-1 vs. depth-N disagreement.
+
+## H11 — Risk posture switching
+
+**Question:** At what score margin and game stage should a player switch from "close" to "complicate" (or vice versa)?
+
+**Method:** From self-play data, bin states by margin and round. For each bin, compare conservative policies (short lines, safe picks, trigger-seeking) against aggressive policies (long commitments, contested bonuses, round extension). Identify the crossover where conservative dominates.
+
+**Prediction:** The threshold is not a fixed margin but depends on remaining bonus potential and round number.
 
 ---
 
