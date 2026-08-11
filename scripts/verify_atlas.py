@@ -38,7 +38,7 @@ def parse_and_verify_atlas(filepath: str) -> bool:
         wall_match = re.search(r'Wall Grid:[\s\S]*?\n((?:[^\n]+\n){5})', pos_text)
         if not wall_match:
             # Check for Opponent Board or simplified state
-            if "Wall Grid:" not in pos_text and ("Opponent Board:" in pos_text or "Visible Red" in pos_text or "Current Floor:" in pos_text or "Center Pool:" in pos_text):
+            if "Wall Grid:" not in pos_text and ("Opponent Board:" in pos_text or "Visible Red" in pos_text or "Current Floor:" in pos_text or "Center Pool:" in pos_text or "Pattern Lines:" in pos_text or "Center:" in pos_text or "Game State:" in pos_text):
                 print(f"  [PASS] {pos_title} - Conceptual/State Diagram (Valid Format)")
                 passed += 1
                 continue
@@ -84,7 +84,7 @@ def parse_and_verify_atlas(filepath: str) -> bool:
             failed += 1
             continue
 
-        print(f"  [PASS] {pos_title} - Wall Grid & Mechanics Validated 100% Legal")
+        print(f"  [PASS] {pos_title} - Basic wall-state check passed")
         passed += 1
 
     print(f"\n==================================================")

@@ -13,7 +13,7 @@ This suite turns the existing Azul notes into a practical strategy system while 
 
 ## Documents
 
-1. **[azul-motif-atlas.md](./azul-motif-atlas.md)** — A pattern-recognition companion: 12 named strategic motifs across 4 families with concrete board positions, multiple-choice puzzles, answers, and explanations. The tactics book for Azul.
+1. **[azul-motif-atlas.md](./azul-motif-atlas.md)** — A pattern-recognition companion: 11 named strategic motifs across 4 families with concrete board positions, multiple-choice puzzles, answers, and explanations. The tactics book for Azul.
 2. **[azul-1v1-strategy-guide.md](./azul-1v1-strategy-guide.md)** — The main play guide: move selection, wall geometry, pattern-line management, factory/center tactics, denial, initiative, bag tracking, phase strategy, and endgame calculation. Includes the compressed move algorithm (THREAT → TAKE+SPILL → FLEX → TAIL) and the unified flexibility framework (Capacity → Choice → Collision).
 3. **[azul-training-playbook.md](./azul-training-playbook.md)** — A deliberate-practice program: drills, post-game review, measurable statistics, and experiments that can later feed the Rust/WASM practice tool.
 4. **[azul-strategy-math-and-research.md](./azul-strategy-math-and-research.md)** — Formalizes the game with useful quantities such as absorption capacity, factory residue vectors, point-differential evaluation, exact bag probabilities, and a claim audit of earlier notes.
@@ -22,7 +22,7 @@ This suite turns the existing Azul notes into a practical strategy system while 
 
 The repository is designed for progressive depth:
 
-1. **Start with the Motif Atlas** ([`azul-motif-atlas.md`](./azul-motif-atlas.md)) — Build visual pattern recognition across 12 core and advanced motifs.
+1. **Start with the Motif Atlas** ([`azul-motif-atlas.md`](./azul-motif-atlas.md)) — Build visual pattern recognition across 11 core and advanced motifs.
 2. **Graduate to the Strategy Guide** ([`azul-1v1-strategy-guide.md`](./azul-1v1-strategy-guide.md)) — Learn the 4-step decision algorithm, flexibility framework, and phase strategies.
 3. **Use the Training Playbook** ([`azul-training-playbook.md`](./azul-training-playbook.md)) — Build game habits with targeted drills and review templates.
 4. **Consult Math & Research** ([`azul-strategy-math-and-research.md`](./azul-strategy-math-and-research.md)) — Explore formal definitions, evaluator features, and research hypotheses.
@@ -73,9 +73,4 @@ The repository includes a standalone Python rules engine and verification test s
 python scripts/verify_atlas.py
 ```
 
-This script verifies:
-- Standard 5×5 wall grid color alignment (`🟦🟨🟥⬛⬜`)
-- Legal pattern line capacities and wall row collisions ($r_i > 0$)
-- Active round mechanics (no complete 5-tile horizontal rows mid-round)
-- Tile drafting rules and floor penalty math
-
+The current validator performs basic wall-state parsing and checks that no horizontal row is already complete.
