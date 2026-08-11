@@ -512,7 +512,7 @@ b  🟨  🟥  ⬛  ⬜    1: [◽]               Current Score: You 35, Opponen
 w  b  y  r  k       2: [◽][◽]            Line 1: [◽] (needs 1🟦)
 k  w  b  y  r       3: [◽][◽][◽]            Factory 1: 1🟦, 3⬛
 r  k  w  b  y       4: [◽][◽][◽][◽]        Projected if End Now: You 41, Opp 49
-y  r  k  w  b       5: [◽][◽][◽][◽][◽]        Projected extra-round value: +14 pts
+y  r  k  w  b       5: [◽][◽][◽][◽][◽]        Projected if Extended: You 55, Opponent 52
                                           Opponent cannot complete a horizontal row this round.
 ```
 
@@ -524,7 +524,7 @@ C. Draft 3⬛ to Floor (-4 pts)
 
 **Answer:** B
 
-**Why:** Wall Row 1 is `b 🟨 🟥 ⬛ ⬜` with Blue (`b`) as the single missing cell. Drafting 1🟦 into Line 1 places Blue at Row 1 Col 1, completing Row 1 and triggering game end. However, ending now yields a projected loss (41 to 49). Current score lead is not the decision metric — **projected final score** is. Keeping the door open gives you Round 5 where your projected extra-round value (+14 pts) can generate a winning comeback.
+**Why:** Wall Row 1 is `b 🟨 🟥 ⬛ ⬜` with Blue (`b`) as the single missing cell. Drafting 1🟦 into Line 1 places Blue at Row 1 Col 1, completing Row 1 and triggering game end. However, ending now yields a projected loss (41 to 49). Current score lead is not the decision metric — **projected final score** is. Keeping the door open projects to a 55–52 win in Round 5, while ending now loses 41–49.
 
 **When the rule fails:** If opponent will complete a full color bonus (+10) in Round 5.
 
