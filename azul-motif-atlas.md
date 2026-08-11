@@ -98,7 +98,7 @@ C. 2🟥 to Line 5
 
 **Why:** Black (⬛) is placed in Rows 1, 2, 3, 4, leaving Row 5 as Black's sole legal home. Red (🟥) is placed in Rows 1, 2, 3, leaving Rows 4 and 5 legal. White is legal in every row and is therefore highly flexible. If you take 2⬜ to Line 5, you consume Black's only remaining home. Taking 2⬜ to Line 2 preserves Line 5 for Black and Line 4 for Red.
 
-**When the rule fails:** If taking Line 5 with White completes a column bonus that guarantees an immediate win.
+**When the rule fails:** If another available move wins the game immediately or prevents an immediate loss, prioritize that over preserving Black's last home.
 
 ---
 
@@ -231,7 +231,7 @@ C. Draft 2🟦 from Factory 1 to Line 2
 
 **Why:** Red is **contested** (Visible Red = 3 < Total Demand = 4). There is not enough Red for both players to finish their lines. If you delay and take White, opponent will draft 2🟥 on their turn, leaving you unable to complete Line 2 this round.
 
-**When the rule fails:** If completing Line 3 with White scores +8 points and seals a column bonus immediately.
+**When the rule fails:** If delaying the contested color gives you a clearly larger immediate tactical gain, such as triggering a favorable game end.
 
 ---
 
@@ -383,7 +383,7 @@ C. Draft 3⬛ from Factory 1 to Line 4
 
 **Why:** Drafting 1🟨 does double duty! It completes your Line 3 for wall placement while simultaneously removing the exact single 🟨 opponent needs for their Line 4 completion. Double-duty moves produce major point swings without taking floor penalties or wasting turns.
 
-**When the rule fails:** If taking a center group triggers an immediate game end when you are leading.
+**When the rule fails:** If another legal move can immediately end the game in your favor, take the game-ending move instead.
 
 ---
 
