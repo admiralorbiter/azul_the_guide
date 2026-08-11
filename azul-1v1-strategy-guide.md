@@ -4,7 +4,7 @@
 **Format:** Two-player / 1v1  
 **Research refresh:** 2026-08-10
 
-> **Central idea:** Strong Azul is not “score the prettiest wall.” It is repeated management of **margin, capacity, residues, initiative, and the game-ending trigger**.
+> **Central idea:** Strong Azul is not “score the prettiest wall.” It is repeated management of **margin, flexibility, draft control, initiative, and the game-ending trigger**.
 
 ---
 
@@ -385,8 +385,8 @@ Opponent needs:        0
                        → safe to delay
 ```
 
-**Scarce + needed by both = contested.** Act now.
-**Abundant + only needed by you = safe to delay.** Do something else first.
+**Scarce + needed by both = contested.** Strong reason to act now.
+**Abundant + only needed by you = often safe to delay.** Still check whether denial would be cheap for your opponent.
 
 `[HEURISTIC]` An opponent can always draft a color directly to the floor just to deny you. "Uncontested" means they have no board-building reason to take it — not that they cannot. Before delaying, check: *is supply tight, and would stealing it be cheap for my opponent?*
 
@@ -767,8 +767,11 @@ That means a horizontal completion can carry **trigger value +2 bonus + tie-brea
 
 # 15. One-page competitive checklist
 
+Use the four-step move algorithm (THREAT → TAKE+SPILL → FLEX → TAIL) during play. Use this longer checklist at round boundaries or when the position becomes warm/hot.
+
 ## Start of round
 
+- [ ] Who starts this round, and what can they take before I can respond?
 - [ ] What colors do I need for rows 3–5?
 - [ ] Which of those are abundant/scarce in the visible 20 tiles?
 - [ ] What does my opponent need?

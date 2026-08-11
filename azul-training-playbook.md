@@ -433,6 +433,12 @@ For five games, before choosing your move, first ask: "Does any move both score 
 
 Goal: discover that multi-purpose moves exist more often than you expect.
 
+## Block J — Poisoned Turn
+
+For five games, whenever three or fewer color groups remain, predict which player will take each group before making your move.
+
+Goal: stop being surprised by the final ugly pickup.
+
 ---
 
 # 15. Experiments for the Rust/WASM practice tool

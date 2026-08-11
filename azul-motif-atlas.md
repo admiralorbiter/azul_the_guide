@@ -44,6 +44,8 @@ The 11 motifs are organized into four strategic families across three difficulty
 
 # Family 1: Flexibility
 
+*See Strategy Guide §§4–5 (Pattern Lines, Flexibility).*
+
 ## Motif: Last Home `[Core]`
 
 **Rule:** Before placing a flexible color, check which colors have only one legal pattern line left.
@@ -168,6 +170,8 @@ B. Take 2⬛ from Center to Floor (-2 pts)
 ---
 
 # Family 2: Draft Control
+
+*See Strategy Guide §§6–7 (Factory Drafting, First-Player Marker).*
 
 ## Motif: Poison Spill `[Core]`
 
@@ -354,6 +358,8 @@ C. Take 2⬜ from Factory 1 to Line 2
 
 # Family 3: Tactical Value
 
+*See Strategy Guide §8 (Blocking and Denial).*
+
 ## Motif: Double-Duty Move `[Core]`
 
 **Rule:** Prefer moves that solve two strategic problems at once: score for your board AND deny your opponent.
@@ -412,6 +418,8 @@ B. Draft 2🟥 from Factory 1 to Floor (-2 pts)
 ---
 
 # Family 4: Wall & Endgame
+
+*See Strategy Guide §§3, 13 (Wall Geometry, Game-Ending Control).*
 
 ## Motif: Cross / Bridge `[Intermediate]`
 
