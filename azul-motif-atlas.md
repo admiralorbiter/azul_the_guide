@@ -13,6 +13,7 @@ A pattern-recognition companion to the 1v1 strategy guide. Each motif is a named
 > - **Colors:** 🟦 Blue (b) | 🟨 Yellow (y) | 🟥 Red (r) | ⬛ Black (k) | ⬜ White (w)
 > - **Wall Grid:** Color emoji (🟦🟨🟥⬛⬜) = placed tile | Lowercase letter (b y r k w) = empty wall slot
 > - **Pattern Lines:** `[◽]` = open slot | `[🟦]` = filled tile slot
+> - **Omitted state:** Unless explicitly shown otherwise, both floor lines are empty and the first-player marker has already been claimed.
 
 ---
 
@@ -128,7 +129,7 @@ C. 1🟦 to Line 4
 
 **Answer:** B
 
-**Why:** Look at your legal destinations. Blue (🟦) and Yellow (🟨) are placed in Rows 1, 2, and 3. Therefore, Blue and Yellow can ONLY go into Row 4 or Row 5. They are bottlenecked together into Rows 4 and 5. Black (⬛) is placed in Rows 1 and 3, meaning Row 2 and Row 4 are legal for Black. If you put Black into Line 4, you consume one of the only two rows Blue and Yellow can use, causing a disastrous traffic jam later. Put 2⬛ into Line 2 to fit Line 2 exactly and keep Lines 4 and 5 open for Blue and Yellow.
+**Why:** Look at your legal destinations. Blue (🟦) and Yellow (🟨) are placed in Rows 1, 2, and 3. Therefore, Blue and Yellow can ONLY go into Row 4 or Row 5. They are bottlenecked together into Rows 4 and 5. Black (⬛) is placed in Rows 1 and 3, meaning Rows 2, 4, and 5 are legal for Black. Use Row 2 because Rows 4 and 5 are the only homes available to Blue and Yellow. Put 2⬛ into Line 2 to fit Line 2 exactly and keep Lines 4 and 5 open for Blue and Yellow.
 
 **When the rule fails:** If you are actively trying to end the game on this round and future board flexibility does not matter.
 
@@ -148,7 +149,7 @@ C. 1🟦 to Line 4
 Pattern Lines:       Options Available:
 1: [⬜]               Center: 2⬛
 2: [🟦][🟦]            Later forced pickup: 3🟨
-3: [🟨][🟨][🟨]
+3: [🟨][🟨][🟨]         Line 5 is legally available for both Black and Yellow.
 4: [🟥][🟥][🟥][🟥]
 5: [◽][◽][◽][◽][◽]
 ```
@@ -182,7 +183,7 @@ B. Take 2⬛ from Center to Floor (-2 pts)
 Pattern Lines:       Options Available:
 1: [◽]               Factory 1: 1🟦, 3🟥  (Final Factory of Round)
 2: [◽][◽]            Center: Empty
-3: [◽][◽][◽]
+3: [◽][◽][◽]            Your Line 3 can legally accept Red.
 4: [◽][◽][◽][◽]
 5: [◽][◽][◽][◽][◽]
 ```
@@ -256,7 +257,7 @@ C. Draft 4🟨 from Factory 2
 
 **Why:** Yellow is **abundant and uncontested** for board-building (Visible Yellow = 6 >> Demand = 2, opponent has no open line for Yellow). Yellow is safe to delay. Take 1⬛ now to deny opponent's Line 1 completion; the Yellow tiles will still be waiting for you later.
 
-**When the rule fails:** If opponent can cheaply take the 2🟨 center group, leaving you only the 4🟨 factory and forcing overflow.
+**When the rule fails:** If delaying lets the opponent change the available Yellow group sizes so that your intended 2-Yellow Line 2 completion is no longer available.
 
 ---
 
@@ -309,7 +310,7 @@ Pattern Lines:       Options Available:
 2: [◽][◽]            Factory 1: 2🟦, 2🟨
 3: [◽][◽][◽]            Current Floor: 4 tiles filled (-6 pts)
 4: [◽][◽][◽][◽]        Expected Overflow Later: 1 tile
-5: [◽][◽][◽][◽][◽]
+5: [◽][◽][◽][◽][◽]        Next-round priority: no critical first-pick target.
 ```
 
 **What would you take?**
@@ -512,6 +513,7 @@ w  b  y  r  k       2: [◽][◽]            Line 1: [◽] (needs 1🟦)
 k  w  b  y  r       3: [◽][◽][◽]            Factory 1: 1🟦, 3⬛
 r  k  w  b  y       4: [◽][◽][◽][◽]        Projected if End Now: You 41, Opp 49
 y  r  k  w  b       5: [◽][◽][◽][◽][◽]        Projected extra-round value: +14 pts
+                                          Opponent cannot complete a horizontal row this round.
 ```
 
 **What do you do?**

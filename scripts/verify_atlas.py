@@ -1,6 +1,6 @@
 """
 Atlas Verification Test Suite Runner
-Parses `azul-motif-atlas.md` and validates every puzzle position against the Azul rules engine.
+Parses `azul-motif-atlas.md` and performs basic format and active-wall-state checks.
 """
 
 import sys

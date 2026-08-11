@@ -67,7 +67,7 @@ For playing better immediately, read the main guide through **The Move Algorithm
 
 ## Verification & Tooling
 
-The repository includes a standalone Python rules engine and verification test suite to ensure that all board positions in the Motif Atlas and strategy guides strictly adhere to standard Azul rules and mechanics:
+The repository includes a Python rules helper and a basic wall-state checker for the Motif Atlas:
 
 ```bash
 python scripts/verify_atlas.py
